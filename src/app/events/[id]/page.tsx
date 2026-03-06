@@ -2,6 +2,7 @@ import { getEventById } from '@/features/events/services/event.service';
 import { notFound } from 'next/navigation';
 import { Button } from '@/shared/components/ui/Button';
 import Link from 'next/link';
+import { TicketSelector } from '@/features/checkout/components/TicketSelector';
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -103,27 +104,20 @@ export default async function EventDetailPage({ params }: PageProps) {
                         <div className="bg-neutral-900/80 backdrop-blur-md border border-white/10 rounded-3xl p-6 shadow-2xl sticky top-24">
                             <h3 className="text-xl font-bold mb-6">Réserver vos billets</h3>
 
-                            <div className="bg-neutral-950 rounded-2xl p-4 border border-white/5 mb-6">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-neutral-400">Billet Standard</span>
-                                    <span className="text-2xl font-bold text-indigo-400">
-                                        {new Intl.NumberFormat('fr-FR').format(event.price)} {event.currency}
-                                    </span>
-                                </div>
-                                <div className="text-sm text-emerald-400 font-medium">
-                                    {event.availableTickets} billets disponibles
-                                </div>
+                            <div className="mb-4 text-sm text-emerald-400 font-medium">
+                                {event.availableTickets} billets disponibles
                             </div>
 
-                            <div className="space-y-4">
-                                <Button fullWidth size="lg" className="text-lg h-14 bg-white text-black hover:bg-neutral-200">
-                                    Acheter des billets
-                                </Button>
+                            <TicketSelector
+                                eventId={event.id}
+                                price={event.price}
+                                currency={event.currency}
+                                availableTickets={event.availableTickets}
+                            />
 
-                                <p className="text-xs text-center text-neutral-500">
-                                    Les paiements sont sécurisés. Vous recevrez vos e-tickets instantanément après le paiement via Mobile Money.
-                                </p>
-                            </div>
+                            <p className="text-xs text-center text-neutral-500 mt-4">
+                                Les paiements sont sécurisés. Vous recevrez vos e-tickets instantanément après le paiement via Mobile Money.
+                            </p>
                         </div>
                     </div>
 
