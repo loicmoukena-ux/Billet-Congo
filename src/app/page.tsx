@@ -1,7 +1,10 @@
+import { getEvents } from '@/features/events/services/event.service';
+import { EventCard } from '@/features/events/components/EventCard';
 import { Button } from '@/shared/components/ui/Button';
-import { Card } from '@/shared/components/ui/Card';
 
-export default function Home() {
+export default async function Home() {
+  const events = await getEvents();
+
   return (
     <div className="container mx-auto px-4 py-20">
       <section className="text-center max-w-3xl mx-auto mb-24 fade-in">
@@ -22,30 +25,20 @@ export default function Home() {
           <h2 className="text-2xl font-bold">À l'affiche</h2>
           <Button variant="ghost">Voir tout →</Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Mock Event Cards */}
-          {[1, 2, 3].map((item) => (
-            <Card key={item} className="group cursor-pointer">
-              <div className="aspect-[4/3] bg-neutral-800 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
-                <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-500 bg-neutral-800" />
-                {/* Fallback pattern for now */}
-                <div className="absolute bottom-4 left-4 z-20">
-                  <div className="bg-indigo-600 text-xs font-bold px-3 py-1 rounded-full mb-2 inline-block">Concert</div>
-                  <h3 className="text-xl font-bold">Showcase Fally Ipupa</h3>
-                  <p className="text-sm text-neutral-300">Stade Marchand, Brazzaville</p>
-                </div>
-              </div>
-              <div className="p-5">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="text-sm text-neutral-400">Dimanche 24 Mars • 18:00</div>
-                  <div className="font-bold text-indigo-400">10 000 FCFA</div>
-                </div>
-                <Button fullWidth variant="secondary">Réserver</Button>
-              </div>
-            </Card>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {events.map((event) => (
+            <div key={event.id}>
+              <EventCard event={event} />
+            </div>
           ))}
         </div>
+
+        {events.length === 0 && (
+          <div className="text-center py-20 bg-neutral-900/50 rounded-2xl border border-white/5">
+            <p className="text-neutral-400">Aucun événement disponible pour le moment.</p>
+          </div>
+        )}
       </section>
     </div>
   );
