@@ -86,6 +86,14 @@ export const paymentService = {
             where: { userId },
             orderBy: { purchaseDate: 'desc' }
         });
-        return tickets as unknown as Ticket[];
+
+        // Convertir les objets Date Prisma en string pour que Next.js puisse les sérialiser
+        return tickets.map(t => ({
+            ...t,
+            purchaseDate: t.purchaseDate.toISOString(),
+            createdAt: t.createdAt.toISOString(),
+            updatedAt: t.updatedAt.toISOString(),
+            scannedAt: t.scannedAt ? t.scannedAt.toISOString() : undefined,
+        })) as unknown as Ticket[];
     }
 };

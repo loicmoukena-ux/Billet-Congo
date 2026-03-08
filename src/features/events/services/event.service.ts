@@ -7,21 +7,38 @@ export const eventService = {
             where: { status: 'PUBLISHED' },
             orderBy: { startDate: 'asc' }
         });
-        return events as unknown as Event[];
+        return events.map(e => ({
+            ...e,
+            startDate: e.startDate.toISOString(),
+            createdAt: e.createdAt.toISOString(),
+            updatedAt: e.updatedAt.toISOString(),
+        })) as unknown as Event[];
     },
 
     async getAdminEvents(): Promise<Event[]> {
         const events = await prisma.event.findMany({
             orderBy: { createdAt: 'desc' }
         });
-        return events as unknown as Event[];
+        return events.map(e => ({
+            ...e,
+            startDate: e.startDate.toISOString(),
+            createdAt: e.createdAt.toISOString(),
+            updatedAt: e.updatedAt.toISOString(),
+        })) as unknown as Event[];
     },
 
     async getEventById(id: string): Promise<Event | null> {
         const event = await prisma.event.findUnique({
             where: { id }
         });
-        return (event as unknown as Event) || null;
+        if (!event) return null;
+
+        return {
+            ...event,
+            startDate: event.startDate.toISOString(),
+            createdAt: event.createdAt.toISOString(),
+            updatedAt: event.updatedAt.toISOString(),
+        } as unknown as Event;
     },
 
     async createEvent(eventData: Omit<Event, 'id' | 'availableTickets'>): Promise<Event> {
