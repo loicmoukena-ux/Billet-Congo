@@ -6,9 +6,10 @@ const protectedRoutes = {
     '/admin': ['ADMIN'],
     '/account': ['USER', 'ADMIN'],
     '/checkout': ['USER', 'ADMIN'],
+    '/scanner': ['ADMIN', 'SCANNER'],
 };
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
     const sessionCookie = request.cookies.get('congo_session');
 
@@ -37,6 +38,9 @@ export function middleware(request: NextRequest) {
         if (sessionCookie) {
             if (sessionCookie.value.includes('usr-admin')) {
                 return NextResponse.redirect(new URL('/admin/dashboard', request.url));
+            }
+            if (sessionCookie.value.includes('usr-scanner')) {
+                return NextResponse.redirect(new URL('/scanner', request.url));
             }
             return NextResponse.redirect(new URL('/account', request.url));
         }
