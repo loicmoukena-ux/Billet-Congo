@@ -1,17 +1,9 @@
-import { PrismaClient } from '@prisma/client';
-import { PrismaPg } from '@prisma/adapter-pg';
 import 'dotenv/config';
-
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL,
-});
-
-const prisma = new PrismaClient({ adapter });
+import prisma from '../src/lib/prisma';
 
 async function main() {
     console.log('--- Seeding Database ---');
 
-    // Mocks originaux
     const mockUsers = [
         {
             id: 'usr-admin-1',
@@ -56,7 +48,7 @@ async function main() {
         {
             id: 'evo-001',
             title: 'Showcase Fally Ipupa',
-            description: 'Le grand retour de l\'Aigle pour un showcase exclusif à Brazzaville. Venez vibrer au rythme de la rumba et de la tokoss music dans un cadre exceptionnel.',
+            description: 'Le grand retour de l\'Aigle pour un showcase exclusif à Brazzaville.',
             location: 'Stade Marchand, Brazzaville',
             startDate: new Date('2024-03-24T18:00:00Z'),
             price: 10000,
@@ -70,7 +62,7 @@ async function main() {
         {
             id: 'evo-002',
             title: 'Festival Panafricain de Musique (FESPAM)',
-            description: 'La 12ème édition du FESPAM s\'annonce grandiose. Plus de 50 artistes venus de tout le continent pour célébrer la musique africaine.',
+            description: 'La 12ème édition du FESPAM — plus de 50 artistes venus de tout le continent.',
             location: 'Esplanade du Palais des Congrès, Brazzaville',
             startDate: new Date('2024-07-15T15:00:00Z'),
             price: 5000,
@@ -84,7 +76,7 @@ async function main() {
         {
             id: 'evo-003',
             title: 'Roga Roga & Extra Musica - 30 Ans',
-            description: 'Célébration des 30 ans de carrière de Roga Roga et Extra Musica. Un concert monumental pour retracer l\'histoire de la musique congolaise.',
+            description: 'Célébration des 30 ans de carrière de Roga Roga et Extra Musica.',
             location: 'Stade Éboué, Brazzaville',
             startDate: new Date('2024-05-10T20:00:00Z'),
             price: 15000,
