@@ -1,6 +1,12 @@
 import { PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import 'dotenv/config';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
+
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
     console.log('--- Seeding Database ---');
@@ -72,7 +78,7 @@ async function main() {
             capacity: 20000,
             availableTickets: 12000,
             status: 'PUBLISHED',
-            organizerId: 'usr-admin-1', // L'ID doit exister dans les Users
+            organizerId: 'usr-admin-1',
             imageUrl: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=2670&auto=format&fit=crop',
         },
         {
