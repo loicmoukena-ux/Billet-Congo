@@ -32,10 +32,10 @@ export const Header = async () => {
             </Link>
           ) : (
             <>
-              <Link href="/login" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">
+              <Link href="/auth/login" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">
                 Se connecter
               </Link>
-              <Link href="/register" className="text-sm font-medium bg-white text-black px-4 py-2 rounded-full hover:bg-neutral-200 transition-colors">
+              <Link href="/auth/register" className="text-sm font-medium bg-white text-black px-4 py-2 rounded-full hover:bg-neutral-200 transition-colors">
                 S&apos;inscrire
               </Link>
             </>
