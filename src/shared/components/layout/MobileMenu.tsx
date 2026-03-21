@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 type MobileMenuProps = {
-  user: any;
+  user: { role: string; fullName: string } | null;
 };
 
 export const MobileMenu = ({ user }: MobileMenuProps) => {
@@ -70,7 +70,7 @@ export const MobileMenu = ({ user }: MobileMenuProps) => {
                     onClick={() => setIsOpen(false)}
                     className="text-center text-base font-medium bg-white text-black py-3 rounded-xl hover:bg-neutral-200 transition-colors"
                   >
-                    S'inscrire
+                    S&apos;inscrire
                   </Link>
                 </>
               )}

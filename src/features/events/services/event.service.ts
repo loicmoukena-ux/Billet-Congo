@@ -103,13 +103,15 @@ export const eventService = {
                 organizer: {
                     connect: { id: eventData.organizerId || 'usr-admin-1' } // Toujours le lier à un vrai utilisateur idéalement
                 }
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
         });
         return event as unknown as Event;
     },
 
     async updateEvent(id: string, eventData: Partial<Event>): Promise<Event | null> {
-        const dataToUpdate: Record<string, unknown> = { ...eventData as any };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const dataToUpdate: Record<string, unknown> = { ...(eventData as any) };
         if (dataToUpdate.id) delete dataToUpdate.id;
         if (dataToUpdate.organizerId) delete dataToUpdate.organizerId;
         if (dataToUpdate.startDate) dataToUpdate.startDate = new Date(dataToUpdate.startDate as string);
