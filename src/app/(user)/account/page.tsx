@@ -10,7 +10,7 @@ export default async function AccountPage() {
     const user = await getCurrentUser();
 
     if (!user) {
-        redirect('/login');
+        redirect('/auth/login');
     }
 
     const tickets = await paymentService.getUserTickets(user.id);

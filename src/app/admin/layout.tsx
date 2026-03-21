@@ -7,7 +7,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     const user = await getCurrentUser();
 
     if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) {
-        redirect('/login');
+        redirect('/auth/login');
     }
 
     return (

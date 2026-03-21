@@ -7,7 +7,7 @@ export default async function ScannerLayout({ children }: { children: React.Reac
     const user = await getCurrentUser();
 
     if (!user || !['ADMIN', 'SCANNER'].includes(user.role)) {
-        redirect('/login');
+        redirect('/auth/login');
     }
 
     return (

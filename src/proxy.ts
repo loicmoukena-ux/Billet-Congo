@@ -18,7 +18,7 @@ export function proxy(request: NextRequest) {
         if (pathname.startsWith(route)) {
             if (!sessionCookie) {
                 // Rediriger vers le login s'il n'y a pas de session
-                const url = new URL('/login', request.url);
+                const url = new URL('/auth/login', request.url);
                 url.searchParams.set('callbackUrl', pathname);
                 return NextResponse.redirect(url);
             }
@@ -34,7 +34,7 @@ export function proxy(request: NextRequest) {
     }
 
     // Rediriger de /login vers dashboard s'il est déjà connecté
-    if (pathname === '/login' || pathname === '/register') {
+    if (pathname === '/auth/login' || pathname === '/register') {
         if (sessionCookie) {
             if (sessionCookie.value.includes('usr-admin')) {
                 return NextResponse.redirect(new URL('/admin/dashboard', request.url));

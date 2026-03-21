@@ -4,7 +4,7 @@ import { getCurrentUser } from '@/features/auth/server/auth.actions';
 import { notFound, redirect } from 'next/navigation';
 import { Card } from '@/shared/components/ui/Card';
 import { Button } from '@/shared/components/ui/Button';
-import { processMobileMoneyPaymentAction } from '@/features/checkout/server/checkout.actions';
+import { processMobileMoneyPaymentAction, processGuestPaymentAction } from '@/features/checkout/server/checkout.actions';
 
 interface PageProps {
     params: Promise<{ eventId: string }>;
@@ -16,10 +16,6 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
     const resolvedSearchParams = await searchParams;
     const user = await getCurrentUser();
 
-    if (!user) {
-        redirect(`/login?callbackUrl=/checkout/${resolvedParams.eventId}`);
-    }
-
     const event = await getEventById(resolvedParams.eventId);
     if (!event) notFound();
 
@@ -27,13 +23,18 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
     const quantity = typeof qtyParam === 'string' ? parseInt(qtyParam, 10) : 1;
     const safeQuantity = isNaN(quantity) || quantity < 1 ? 1 : quantity;
 
-    // Créer une session de checkout
-    const session = await paymentService.initCheckout(
-        event.id,
-        user.id,
-        safeQuantity,
-        event.price
-    );
+    let session = null;
+    let totalPrice = event.price * safeQuantity;
+
+    if (user) {
+        session = await paymentService.initCheckout(
+            event.id,
+            user.id,
+            safeQuantity,
+            event.price
+        );
+        totalPrice = session.totalPrice;
+    }
 
     return (
         <div className="container mx-auto px-4 py-16 max-w-5xl">
@@ -64,7 +65,7 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
                         </div>
                         <div className="flex justify-between font-bold text-lg pt-4 border-t border-white/10 mt-4 text-indigo-400">
                             <span>Total à payer</span>
-                            <span>{new Intl.NumberFormat('fr-FR').format(session.totalPrice)} {event.currency}</span>
+                            <span>{new Intl.NumberFormat('fr-FR').format(totalPrice)} {event.currency}</span>
                         </div>
                     </div>
                 </div>
@@ -77,11 +78,34 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
                             Sélectionnez votre opérateur et entrez votre numéro. Vous recevrez un prompt USSD sur votre téléphone pour valider l&apos;achat.
                         </p>
 
-                        <form action={processMobileMoneyPaymentAction} className="space-y-6">
-                            <input type="hidden" name="sessionId" value={session.id} />
+                        <form action={user ? processMobileMoneyPaymentAction : processGuestPaymentAction} className="space-y-6">
+                            {user ? (
+                                <input type="hidden" name="sessionId" value={session!.id} />
+                            ) : (
+                                <>
+                                    <input type="hidden" name="eventId" value={event.id} />
+                                    <input type="hidden" name="quantity" value={safeQuantity} />
+                                </>
+                            )}
+
+                            {!user && (
+                                <div className="space-y-4">
+                                    <h3 className="text-sm font-medium text-neutral-300 border-b border-white/10 pb-2">Vos informations</h3>
+                                    <div>
+                                        <label className="block text-xs font-medium mb-1 text-neutral-400">Nom et Prénom</label>
+                                        <input
+                                            type="text"
+                                            name="fullName"
+                                            required
+                                            placeholder="Ex: John Doe"
+                                            className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                        />
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="space-y-4">
-                                <label className="block text-sm font-medium text-neutral-300">Opérateur de Mobile Money</label>
+                                <h3 className="text-sm font-medium text-neutral-300 border-b border-white/10 pb-2">Opérateur de Mobile Money</h3>
                                 <div className="grid grid-cols-2 gap-4">
                                     <label className="cursor-pointer relative">
                                         <input type="radio" name="provider" value="MTN" className="peer sr-only" defaultChecked />
@@ -103,7 +127,7 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
                                 <input
                                     type="tel"
                                     name="phone"
-                                    defaultValue={user.phoneNumber}
+                                    defaultValue={user?.phoneNumber || ''}
                                     required
                                     placeholder="Ex: 06 123 45 67"
                                     className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
@@ -112,7 +136,7 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
 
                             <div className="pt-4">
                                 <Button type="submit" fullWidth size="lg" className="h-14 text-lg">
-                                    Payer {new Intl.NumberFormat('fr-FR').format(session.totalPrice)} {event.currency}
+                                    Payer {new Intl.NumberFormat('fr-FR').format(totalPrice)} {event.currency}
                                 </Button>
                                 <p className="text-center text-xs text-neutral-500 mt-4">
                                     En cliquant sur Payer, vous acceptez nos CGV. Ce MVP simulera une attente de validation USSD puis réussira automatiquement.

@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default async function AdminEventsPage() {
     const user = await getCurrentUser();
-    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) redirect('/login');
+    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) redirect('/auth/login');
 
     const events = await eventService.getAdminEvents(user.id, user.role);
 

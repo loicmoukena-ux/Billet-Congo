@@ -3,7 +3,9 @@ import { paymentService } from '@/features/checkout/services/payment.service';
 import { getEventById } from '@/features/events/services/event.service';
 import { redirect, notFound } from 'next/navigation';
 import { Card } from '@/shared/components/ui/Card';
+import { DownloadTicketButton } from '@/shared/components/ui/DownloadTicketButton';
 import Link from 'next/link';
+import QRCode from 'react-qr-code';
 // Un composant de génération de QR Code (ici on mock en CSS ou image pour le MVP)
 // npm i react-qr-code (Pourrait être ajouté plus tard)
 
@@ -16,7 +18,7 @@ export default async function TicketPage({ params }: PageProps) {
     const user = await getCurrentUser();
 
     if (!user) {
-        redirect('/login');
+        redirect('/auth/login');
     }
 
     // Dans un cas réel, getTicketById(...)
@@ -43,7 +45,7 @@ export default async function TicketPage({ params }: PageProps) {
                     </Link>
                 </div>
 
-                <Card className="overflow-hidden shadow-2xl bg-white text-black relative">
+                <div id="ticket-pdf-content" className="rounded-3xl overflow-hidden shadow-2xl bg-white text-black relative">
                     {/* Tag de statut */}
                     <div className="absolute top-4 right-4">
                         <span className={`px-3 py-1 pb-1.5 rounded-full text-xs font-bold ${ticket.status === 'PAID' ? 'bg-emerald-100 text-emerald-700' : 'bg-neutral-100 text-neutral-700'
@@ -82,16 +84,27 @@ export default async function TicketPage({ params }: PageProps) {
                     </div>
 
                     <div className="bg-neutral-50 p-8 flex flex-col items-center justify-center border-t border-solid border-neutral-200">
-                        {/* Simulation d'un QR code */}
-                        <div className="w-48 h-48 bg-white border-2 border-neutral-100 p-2 rounded-xl mb-4 relative overflow-hidden">
-                            <div className="absolute inset-2 bg-[url('https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg')] bg-cover opacity-80" style={{ filter: 'grayscale(100%) contrast(120%)' }}></div>
+                        <div className="w-48 h-48 bg-white border-2 border-neutral-100 p-4 rounded-xl mb-4 relative overflow-hidden flex items-center justify-center">
+                            <QRCode
+                                value={ticket.qrCodeData || ticket.id}
+                                size={160}
+                                style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                                viewBox={`0 0 160 160`}
+                            />
                         </div>
                         <div className="bg-neutral-200 px-4 py-2 rounded-lg">
                             <p className="text-sm font-mono tracking-widest font-bold text-neutral-800">{ticket.reference}</p>
                         </div>
                         <p className="text-xs text-neutral-400 mt-4 text-center">Présentez ce QR Code à l&apos;entrée de l&apos;événement.</p>
                     </div>
-                </Card>
+                </div>
+
+                <DownloadTicketButton 
+                    ticketId={ticket.id} 
+                    role={user.role} 
+                    downloadCount={ticket.downloadCount} 
+                    targetElementId="ticket-pdf-content" 
+                />
             </div>
         </div>
     );
