@@ -3,6 +3,7 @@ import { paymentService } from '@/features/checkout/services/payment.service';
 import { getEventById } from '@/features/events/services/event.service';
 import { redirect, notFound } from 'next/navigation';
 import { Card } from '@/shared/components/ui/Card';
+import { DownloadTicketButton } from '@/shared/components/ui/DownloadTicketButton';
 import Link from 'next/link';
 // Un composant de génération de QR Code (ici on mock en CSS ou image pour le MVP)
 // npm i react-qr-code (Pourrait être ajouté plus tard)
@@ -43,7 +44,7 @@ export default async function TicketPage({ params }: PageProps) {
                     </Link>
                 </div>
 
-                <Card className="overflow-hidden shadow-2xl bg-white text-black relative">
+                <Card id="ticket-pdf-content" className="overflow-hidden shadow-2xl bg-white text-black relative">
                     {/* Tag de statut */}
                     <div className="absolute top-4 right-4">
                         <span className={`px-3 py-1 pb-1.5 rounded-full text-xs font-bold ${ticket.status === 'PAID' ? 'bg-emerald-100 text-emerald-700' : 'bg-neutral-100 text-neutral-700'
@@ -92,6 +93,13 @@ export default async function TicketPage({ params }: PageProps) {
                         <p className="text-xs text-neutral-400 mt-4 text-center">Présentez ce QR Code à l&apos;entrée de l&apos;événement.</p>
                     </div>
                 </Card>
+
+                <DownloadTicketButton 
+                    ticketId={ticket.id} 
+                    role={user.role} 
+                    downloadCount={ticket.downloadCount} 
+                    targetElementId="ticket-pdf-content" 
+                />
             </div>
         </div>
     );

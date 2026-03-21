@@ -84,6 +84,7 @@ model Ticket {
   status       String    @default("VALID") // VALID, USED, CANCELLED
   purchaseDate DateTime  @default(now())
   scannedAt    DateTime?
+  downloadCount Int      @default(0)
   scanLogs     ScanLog[]
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt

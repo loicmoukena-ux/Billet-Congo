@@ -9,6 +9,7 @@ export interface Ticket {
     pricePaid: number;
     status: TicketStatus;
     qrCodeData: string;
+    downloadCount: number;
 }
 
 export interface CheckoutSession {

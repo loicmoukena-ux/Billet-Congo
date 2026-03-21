@@ -3,6 +3,8 @@
 import { paymentService } from '../services/payment.service';
 import { getCurrentUser } from '@/features/auth/server/auth.actions';
 import { redirect } from 'next/navigation';
+import prisma from '@/lib/prisma';
+import { cookies } from 'next/headers';
 
 export async function processMobileMoneyPaymentAction(formData: FormData): Promise<void> {
     const sessionId = formData.get('sessionId') as string;
@@ -20,13 +22,10 @@ export async function processMobileMoneyPaymentAction(formData: FormData): Promi
 
     let redirectUrl = '';
 
-    // Simuler l'appel à l'API de paiement
     try {
         const response = await paymentService.processMobileMoneyPayment(sessionId, phone, provider);
 
         if (response.success && response.tickets && response.tickets.length > 0) {
-            // Redirection après succès vers le QR Billet (on prend le premier ticket ou la liste)
-            // Pour ce MVP, on redirige vers le détail du ticket 1 s'il n'y en a qu'un, ou vers /account s'il y en a plusieurs
             if (response.tickets.length === 1) {
                 redirectUrl = `/account/ticket/${response.tickets[0].id}`;
             } else {
@@ -39,7 +38,59 @@ export async function processMobileMoneyPaymentAction(formData: FormData): Promi
         throw new Error('Une erreur serveur est survenue.');
     }
 
-    // Effectuer la redirection en dehors du try/catch
+    if (redirectUrl) {
+        redirect(redirectUrl);
+    }
+}
+
+export async function processGuestPaymentAction(formData: FormData): Promise<void> {
+    const eventId = formData.get('eventId') as string;
+    const quantity = parseInt(formData.get('quantity') as string, 10) || 1;
+    const fullName = formData.get('fullName') as string;
+    const phone = formData.get('phone') as string;
+    const provider = formData.get('provider') as 'MTN' | 'AIRTEL';
+
+    if (!fullName || !phone) throw new Error("Informations incomplètes.");
+
+    const guestUser = await prisma.user.upsert({
+        where: { phoneNumber: phone },
+        update: { fullName },
+        create: {
+            role: 'GUEST',
+            phoneNumber: phone,
+            fullName,
+            email: `guest_${Date.now()}@exemple.com`
+        }
+    });
+
+    const event = await prisma.event.findUnique({ where: { id: eventId } });
+    if (!event) throw new Error("Event not found");
+
+    const session = await paymentService.initCheckout(eventId, guestUser.id, quantity, event.price);
+
+    let redirectUrl = '';
+
+    try {
+        const response = await paymentService.processMobileMoneyPayment(session.id, phone, provider);
+
+        if (response.success && response.tickets && response.tickets.length > 0) {
+            const token = `mock-jwt-token-${guestUser.id}-${Date.now()}`;
+            const cookieStore = await cookies();
+            cookieStore.set('congo_session', token, { httpOnly: true, maxAge: 60*60*24*7, path: '/' });
+
+            if (response.tickets.length === 1) {
+                redirectUrl = `/account/ticket/${response.tickets[0].id}`;
+            } else {
+                redirectUrl = `/account?success=true`;
+            }
+        } else {
+            throw new Error('Le paiement a échoué ou a expiré.');
+        }
+    } catch (err) {
+        console.error("Erreur serveur", err);
+        throw new Error('Une erreur serveur est survenue.');
+    }
+
     if (redirectUrl) {
         redirect(redirectUrl);
     }
