@@ -81,6 +81,31 @@ export default function LoginPage() {
                         </Link>
                     </p>
 
+                    <div className="relative mt-6">
+                        <div className="absolute inset-0 flex items-center">
+                            <span className="w-full border-t border-white/10" />
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                            <span className="bg-neutral-950 px-2 text-neutral-500">Ou</span>
+                        </div>
+                    </div>
+
+                    <Button 
+                        type="button" 
+                        variant="outline" 
+                        fullWidth 
+                        onClick={() => {
+                            if (window.history.length > 2) {
+                                router.back();
+                            } else {
+                                router.push('/');
+                            }
+                        }}
+                        className="border-neutral-700 text-neutral-300 hover:bg-neutral-800"
+                    >
+                        Continuer sans compte
+                    </Button>
+
                     <div className="mt-8 pt-6 border-t border-white/5 text-xs text-neutral-500">
                         <p className="mb-2"><strong>Démos disponibles :</strong></p>
                         <p>Admin: phone <code>061234567</code>, pin <code>1234</code></p>

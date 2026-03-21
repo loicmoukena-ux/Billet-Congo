@@ -7,7 +7,7 @@ import { eventService } from '@/features/events/services/event.service';
 
 export default async function AdminDashboardPage() {
     const user = await getCurrentUser();
-    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) redirect('/login');
+    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) redirect('/auth/login');
 
     const stats = await eventService.getDashboardStats(user.id, user.role);
 

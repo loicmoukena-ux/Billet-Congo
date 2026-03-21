@@ -23,29 +23,49 @@ export function DownloadTicketButton({ ticketId, role, downloadCount, targetElem
         setIsDownloading(true);
 
         try {
-            // Chargement lazy pour éviter les crash SSR (window is not defined)
-            const html2pdfModule = await import('html2pdf.js');
-            const html2pdf = html2pdfModule.default || html2pdfModule;
+            // Lazy load the dependencies to keep the bundle small and avoid SSR issues
+            const htmlToImage = await import('html-to-image');
+            const { jsPDF } = await import('jspdf');
 
             const element = document.getElementById(targetElementId);
             if (!element) throw new Error("Element non trouvé");
 
-            const opt: any = {
-                margin: 0.5,
-                filename: `billet-${ticketId}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
+            // Convertir l'élément en image PNG avec un haut niveau de détails (pixelRatio)
+            const dataUrl = await htmlToImage.toPng(element, { 
+                quality: 0.95, 
+                pixelRatio: 2,
+                backgroundColor: '#ffffff' // Force white background
+            });
 
-            await html2pdf().set(opt).from(element).save();
+            // Créer le PDF au format A4
+            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+            
+            // Calculer les dimensions pour conserver le ratio, sans dépasser la page
+            const pdfPageWidth = pdf.internal.pageSize.getWidth();
+            const pdfPageHeight = pdf.internal.pageSize.getHeight();
+            const ratio = element.offsetWidth / element.offsetHeight;
+            
+            let imgWidth = pdfPageWidth;
+            let imgHeight = pdfPageWidth / ratio;
 
-            // Incrémente le compteur en base de données
+            if (imgHeight > pdfPageHeight) {
+                imgHeight = pdfPageHeight;
+                imgWidth = imgHeight * ratio;
+            }
+
+            const x = (pdfPageWidth - imgWidth) / 2;
+            const y = (pdfPageHeight - imgHeight) / 2;
+
+            // Ajouter l'image au PDF et sauvegarder
+            pdf.addImage(dataUrl, 'PNG', x, y, imgWidth, imgHeight);
+            pdf.save(`billet-congo-${ticketId}.pdf`);
+
+            // Incrémente le compteur en base de données de manière asynchrone
             await incrementDownloadCountAction(ticketId);
             setLocalCount(prev => prev + 1);
         } catch (error) {
-            console.error("Erreur téléchargement", error);
-            alert("Erreur lors de la génération du PDF.");
+            console.error("Erreur de génération PDF", error);
+            alert("Erreur lors de la génération du billet.");
         } finally {
             setIsDownloading(false);
         }
@@ -61,7 +81,7 @@ export function DownloadTicketButton({ ticketId, role, downloadCount, targetElem
 
     return (
         <Button onClick={handleDownload} disabled={isDownloading} className="mt-8 w-full" size="lg">
-            {isDownloading ? 'Génération du PDF...' : '⬇️ Télécharger mon Billet (PDF)'}
+            {isDownloading ? 'Génération du PDF en cours...' : '⬇️ Télécharger mon Billet (PDF)'}
         </Button>
     );
 }
