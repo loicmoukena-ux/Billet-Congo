@@ -95,3 +95,16 @@ export async function processGuestPaymentAction(formData: FormData): Promise<voi
         redirect(redirectUrl);
     }
 }
+
+export async function redirectToFirstEventCheckout(): Promise<void> {
+    const event = await prisma.event.findFirst({
+        where: { status: 'PUBLISHED' },
+        orderBy: { startDate: 'asc' }
+    });
+    
+    if (event) {
+        redirect(`/checkout/${event.id}?qty=1`);
+    } else {
+        redirect('/');
+    }
+}

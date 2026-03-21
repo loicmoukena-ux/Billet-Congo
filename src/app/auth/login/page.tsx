@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { loginAction } from '@/features/auth/server/auth.actions';
+import { redirectToFirstEventCheckout } from '@/features/checkout/server/checkout.actions';
 import { Button } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
 
@@ -91,16 +92,10 @@ export default function LoginPage() {
                     </div>
 
                     <Button 
-                        type="button" 
+                        type="submit" 
+                        formAction={redirectToFirstEventCheckout}
                         variant="outline" 
                         fullWidth 
-                        onClick={() => {
-                            if (window.history.length > 2) {
-                                router.back();
-                            } else {
-                                router.push('/');
-                            }
-                        }}
                         className="border-neutral-700 text-neutral-300 hover:bg-neutral-800"
                     >
                         Continuer sans compte
