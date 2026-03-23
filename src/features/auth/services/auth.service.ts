@@ -28,16 +28,7 @@ export const authService = {
         return user as unknown as User;
     },
 
-    async authenticate(phoneNumber: string, password: string): Promise<AuthSession | null> {
-        const user = await prisma.user.findUnique({
-            where: { phoneNumber }
-        });
-
-        if (!user) return null;
-
-        const isPasswordValid = await bcrypt.compare(password, (user as any).password);
-        if (!isPasswordValid) return null;
-
+    async createSession(user: User): Promise<AuthSession> {
         const token = await new jose.SignJWT({ 
             userId: user.id, 
             email: user.email,
@@ -52,6 +43,19 @@ export const authService = {
             user: user as unknown as User,
             token
         };
+    },
+
+    async authenticate(phoneNumber: string, password: string): Promise<AuthSession | null> {
+        const user = await prisma.user.findUnique({
+            where: { phoneNumber }
+        });
+
+        if (!user || !(user as any).password) return null;
+
+        const isPasswordValid = await bcrypt.compare(password, (user as any).password);
+        if (!isPasswordValid) return null;
+
+        return this.createSession(user as unknown as User);
     },
 
     async getSessionByToken(token: string): Promise<AuthSession | null> {

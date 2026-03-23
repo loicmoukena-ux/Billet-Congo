@@ -4,6 +4,7 @@ import { paymentService } from '../services/payment.service';
 import { getCurrentUser } from '@/features/auth/server/auth.actions';
 import { redirect } from 'next/navigation';
 import prisma from '@/lib/prisma';
+import { authService } from "@/features/auth/services/auth.service";
 import { cookies } from 'next/headers';
 
 export async function processMobileMoneyPaymentAction(formData: FormData): Promise<void> {
@@ -74,9 +75,15 @@ export async function processGuestPaymentAction(formData: FormData): Promise<voi
         const response = await paymentService.processMobileMoneyPayment(session.id, phone, provider);
 
         if (response.success && response.tickets && response.tickets.length > 0) {
-            const token = `mock-jwt-token-${guestUser.id}-${Date.now()}`;
+            // Créer une session réelle pour le guest
+            const { token } = await authService.createSession(guestUser as any);
             const cookieStore = await cookies();
-            cookieStore.set('congo_session', token, { httpOnly: true, maxAge: 60*60*24*7, path: '/' });
+            cookieStore.set('congo_session', token, { 
+                httpOnly: true, 
+                maxAge: 60*60*24*7, 
+                path: '/',
+                sameSite: 'lax'
+            });
 
             if (response.tickets.length === 1) {
                 redirectUrl = `/account/ticket/${response.tickets[0].id}`;
