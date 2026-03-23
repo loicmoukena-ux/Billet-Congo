@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { loginAction } from '@/features/auth/server/auth.actions';
@@ -8,7 +8,7 @@ import { redirectToFirstEventCheckout } from '@/features/checkout/server/checkou
 import { Button } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
 
-export default function LoginPage() {
+function LoginForm() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [error, setError] = useState('');
@@ -117,5 +117,19 @@ export default function LoginPage() {
                 </form>
             </Card>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center -mt-16 px-4">
+                <Card className="w-full max-w-md p-8 shadow-2xl text-center">
+                    <p className="text-neutral-400 animate-pulse">Chargement...</p>
+                </Card>
+            </div>
+        }>
+            <LoginForm />
+        </Suspense>
     );
 }
