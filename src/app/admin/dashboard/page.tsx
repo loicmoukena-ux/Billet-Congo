@@ -18,9 +18,16 @@ export default async function AdminDashboardPage() {
                     <h1 className="text-3xl font-bold mb-2">Tableau de bord</h1>
                     <p className="text-neutral-400">Gérez votre plateforme de billetterie en temps réel.</p>
                 </div>
-                <Link href="/admin/events/new">
-                    <Button>Créer un événement</Button>
-                </Link>
+                <div className="flex gap-4">
+                    {user.role === 'ADMIN' && (
+                        <Link href="/admin/users">
+                            <Button variant="outline">Gérer les utilisateurs</Button>
+                        </Link>
+                    )}
+                    <Link href="/admin/events/new">
+                        <Button>Créer un événement</Button>
+                    </Link>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">

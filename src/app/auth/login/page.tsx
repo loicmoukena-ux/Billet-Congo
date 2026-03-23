@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { loginAction } from '@/features/auth/server/auth.actions';
 import { redirectToFirstEventCheckout } from '@/features/checkout/server/checkout.actions';
@@ -10,12 +10,21 @@ import { Card } from '@/shared/components/ui/Card';
 
 export default function LoginPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (searchParams.get('registered')) {
+            setSuccess('Compte créé avec succès. Vous pouvez maintenant vous connecter.');
+        }
+    }, [searchParams]);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setError('');
+        setSuccess('');
         setIsLoading(true);
 
         const formData = new FormData(e.currentTarget);
@@ -47,6 +56,12 @@ export default function LoginPage() {
                     </div>
                 )}
 
+                {success && (
+                    <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-4 rounded-xl mb-6 text-sm">
+                        {success}
+                    </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
                         <label className="block text-sm font-medium mb-2 text-neutral-300">Numéro de téléphone</label>
@@ -60,13 +75,12 @@ export default function LoginPage() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-2 text-neutral-300">Code PIN (4 chiffres)</label>
+                        <label className="block text-sm font-medium mb-2 text-neutral-300">Mot de passe</label>
                         <input
                             type="password"
-                            name="pin"
+                            name="password"
                             required
-                            maxLength={4}
-                            placeholder="••••"
+                            placeholder="••••••••"
                             className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                         />
                     </div>
@@ -77,7 +91,7 @@ export default function LoginPage() {
 
                     <p className="text-center text-sm text-neutral-400 pt-4">
                         Pas encore de compte ?{' '}
-                        <Link href="/register" className="text-indigo-400 hover:text-indigo-300 font-medium">
+                        <Link href="/auth/register" className="text-indigo-400 hover:text-indigo-300 font-medium">
                             S&apos;inscrire
                         </Link>
                     </p>
@@ -100,12 +114,6 @@ export default function LoginPage() {
                     >
                         Continuer sans compte
                     </Button>
-
-                    <div className="mt-8 pt-6 border-t border-white/5 text-xs text-neutral-500">
-                        <p className="mb-2"><strong>Démos disponibles :</strong></p>
-                        <p>Admin: phone <code>061234567</code>, pin <code>1234</code></p>
-                        <p>User: n&apos;importe quel numéro et un pin à 4 chiffres créera un compte (Mock)</p>
-                    </div>
                 </form>
             </Card>
         </div>

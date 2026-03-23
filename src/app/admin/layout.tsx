@@ -26,10 +26,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                     <Link href="/admin/events" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
                         🎟️ Événements
                     </Link>
-                    <Link href="#" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
+                    <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
                         💰 Ventes
                     </Link>
-                    <Link href="#" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
+                    <Link href="/admin/users" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
                         👥 Utilisateurs
                     </Link>
                 </nav>

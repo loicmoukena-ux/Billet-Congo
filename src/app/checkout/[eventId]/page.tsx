@@ -139,7 +139,7 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
                                     Payer {new Intl.NumberFormat('fr-FR').format(totalPrice)} {event.currency}
                                 </Button>
                                 <p className="text-center text-xs text-neutral-500 mt-4">
-                                    En cliquant sur Payer, vous acceptez nos CGV. Ce MVP simulera une attente de validation USSD puis réussira automatiquement.
+                                    En cliquant sur Payer, vous acceptez nos CGV.
                                 </p>
                             </div>
                         </form>

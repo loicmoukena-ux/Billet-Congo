@@ -5,9 +5,8 @@ import { redirect, notFound } from 'next/navigation';
 import { Card } from '@/shared/components/ui/Card';
 import { DownloadTicketButton } from '@/shared/components/ui/DownloadTicketButton';
 import Link from 'next/link';
+// Composant de génération de QR Code
 import QRCode from 'react-qr-code';
-// Un composant de génération de QR Code (ici on mock en CSS ou image pour le MVP)
-// npm i react-qr-code (Pourrait être ajouté plus tard)
 
 interface PageProps {
     params: Promise<{ ticketId: string }>;
@@ -21,8 +20,7 @@ export default async function TicketPage({ params }: PageProps) {
         redirect('/auth/login');
     }
 
-    // Dans un cas réel, getTicketById(...)
-    // Pour le MVP mock, on récupère tous les tickets du user et on filtre
+    // Récupérer les billets de l'utilisateur
     const tickets = await paymentService.getUserTickets(user.id);
     const ticket = tickets.find(t => t.id === resolvedParams.ticketId);
 
