@@ -8,7 +8,7 @@ import { EventStatus } from '../types';
 
 export async function createOrUpdateEventAction(formData: FormData) {
     const user = await getCurrentUser();
-    if (!user || user.role !== 'ADMIN') {
+    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) {
         throw new Error('Non autorisé');
     }
 
@@ -26,6 +26,14 @@ export async function createOrUpdateEventAction(formData: FormData) {
     const isoDate = new Date(startDate).toISOString();
 
     if (id) {
+        // Update check
+        if (user.role === 'PROMOTER') {
+            const event = await eventService.getEventById(id);
+            if (!event || event.organizerId !== user.id) {
+                throw new Error('Non autorisé à modifier cet événement');
+            }
+        }
+
         // Update
         await eventService.updateEvent(id, {
             title, description, location, startDate: isoDate, price, capacity, status, imageUrl
@@ -45,12 +53,19 @@ export async function createOrUpdateEventAction(formData: FormData) {
 
 export async function deleteEventAction(formData: FormData) {
     const user = await getCurrentUser();
-    if (!user || user.role !== 'ADMIN') {
+    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) {
         throw new Error('Non autorisé');
     }
 
     const id = formData.get('id') as string;
     if (!id) throw new Error('ID manquant');
+
+    if (user.role === 'PROMOTER') {
+        const event = await eventService.getEventById(id);
+        if (!event || event.organizerId !== user.id) {
+            throw new Error('Non autorisé à supprimer cet événement');
+        }
+    }
 
     await eventService.deleteEvent(id);
 
@@ -60,12 +75,19 @@ export async function deleteEventAction(formData: FormData) {
 
 export async function toggleEventStatusAction(formData: FormData) {
     const user = await getCurrentUser();
-    if (!user || user.role !== 'ADMIN') {
+    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) {
         throw new Error('Non autorisé');
     }
 
     const id = formData.get('id') as string;
     const currentStatus = formData.get('currentStatus') as EventStatus;
+
+    if (user.role === 'PROMOTER') {
+        const event = await eventService.getEventById(id);
+        if (!event || event.organizerId !== user.id) {
+            throw new Error('Non autorisé à modifier le statut de cet événement');
+        }
+    }
 
     const newStatus: EventStatus = currentStatus === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED';
 

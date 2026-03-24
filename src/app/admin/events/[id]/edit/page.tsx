@@ -1,15 +1,24 @@
 import { createOrUpdateEventAction } from '@/features/events/server/event.actions';
 import { eventService } from '@/features/events/services/event.service';
+import { getCurrentUser } from '@/features/auth/server/auth.actions';
 import { Card } from '@/shared/components/ui/Card';
 import { Button } from '@/shared/components/ui/Button';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 export default async function EditEventPage({ params }: { params: Promise<{ id: string }> }) {
+    const user = await getCurrentUser();
+    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) redirect('/auth/login');
+
     const resolvedParams = await params;
     const event = await eventService.getEventById(resolvedParams.id);
 
     if (!event) notFound();
+
+    // Verification des permissions pour les promoteurs
+    if (user.role === 'PROMOTER' && event.organizerId !== user.id) {
+        redirect('/admin/events');
+    }
 
     // Format date for datetime-local input
     const dateObj = new Date(event.startDate);
