@@ -104,15 +104,13 @@ export default async function EventDetailPage({ params }: PageProps) {
                         <div className="bg-neutral-900/80 backdrop-blur-md border border-white/10 rounded-3xl p-6 shadow-2xl sticky top-24">
                             <h3 className="text-xl font-bold mb-6">Réserver vos billets</h3>
 
-                            <div className="mb-4 text-sm text-emerald-400 font-medium">
-                                {event.availableTickets} billets disponibles
-                            </div>
-
                             <TicketSelector
                                 eventId={event.id}
                                 price={event.price}
+                                vipPrice={event.vipPrice || undefined}
                                 currency={event.currency}
                                 availableTickets={event.availableTickets}
+                                availableVipTickets={event.availableVipTickets || undefined}
                             />
 
                             <p className="text-xs text-center text-neutral-500 mt-4">

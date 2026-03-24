@@ -47,6 +47,13 @@ export const EventCard = ({ event }: EventCardProps) => {
                                 {isSoldOut ? 'Épuisé' : isLowStock ? 'Dernières places' : 'Disponible'}
                             </span>
                         </div>
+                        {event.vipPrice && (
+                            <div className="glass px-3 py-1.5 rounded-full mt-2 bg-amber-500/20 border-amber-500/30">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
+                                    VIP Disponible
+                                </span>
+                            </div>
+                        )}
                     </div>
                 </div>
 

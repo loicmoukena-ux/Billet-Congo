@@ -23,15 +23,20 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
     const quantity = typeof qtyParam === 'string' ? parseInt(qtyParam, 10) : 1;
     const safeQuantity = isNaN(quantity) || quantity < 1 ? 1 : quantity;
 
+    const ticketType = (resolvedSearchParams.type as string) || 'STANDARD';
+    const isVip = ticketType === 'VIP';
+    const pricePerUnit = isVip ? (event.vipPrice || event.price) : event.price;
+
     let session = null;
-    let totalPrice = event.price * safeQuantity;
+    let totalPrice = pricePerUnit * safeQuantity;
 
     if (user) {
         session = await paymentService.initCheckout(
             event.id,
             user.id,
             safeQuantity,
-            event.price
+            pricePerUnit,
+            ticketType
         );
         totalPrice = session.totalPrice;
     }
@@ -56,8 +61,10 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
 
                     <div className="space-y-3 pt-6 border-t border-white/10">
                         <div className="flex justify-between text-sm">
-                            <span className="text-neutral-400">Billet Standard x {safeQuantity}</span>
-                            <span>{new Intl.NumberFormat('fr-FR').format(event.price * safeQuantity)} {event.currency}</span>
+                            <span className={`${isVip ? 'text-amber-400 font-bold' : 'text-neutral-400'}`}>
+                                Billet {isVip ? 'VIP' : 'Standard'} x {safeQuantity}
+                            </span>
+                            <span>{new Intl.NumberFormat('fr-FR').format(pricePerUnit * safeQuantity)} {event.currency}</span>
                         </div>
                         <div className="flex justify-between text-sm">
                             <span className="text-neutral-400">Frais de service (0%)</span>
@@ -83,8 +90,9 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
                                 <input type="hidden" name="sessionId" value={session!.id} />
                             ) : (
                                 <>
-                                    <input type="hidden" name="eventId" value={event.id} />
+                                     <input type="hidden" name="eventId" value={event.id} />
                                     <input type="hidden" name="quantity" value={safeQuantity} />
+                                    <input type="hidden" name="type" value={ticketType} />
                                 </>
                             )}
 

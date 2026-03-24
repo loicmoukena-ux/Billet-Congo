@@ -2,13 +2,14 @@ import { Ticket, CheckoutSession } from '../../tickets/types';
 import prisma from '@/lib/prisma';
 
 export const paymentService = {
-    async initCheckout(eventId: string, userId: string, quantity: number, pricePerUnit: number): Promise<CheckoutSession> {
+    async initCheckout(eventId: string, userId: string, quantity: number, pricePerUnit: number, ticketType: string = 'STANDARD'): Promise<CheckoutSession> {
         const session = await prisma.order.create({
             data: {
                 eventId,
                 userId,
                 quantity,
                 totalPrice: quantity * pricePerUnit,
+                ticketType,
                 status: 'PENDING',
                 expiresAt: new Date(Date.now() + 15 * 60000) // 15 mins
             }
@@ -48,10 +49,11 @@ export const paymentService = {
 
 
                         // 2. Reduce available tickets on Event
+                        const isVip = order.ticketType === 'VIP';
                         await tx.event.update({
                             where: { id: order.eventId },
                             data: {
-                                availableTickets: {
+                                [isVip ? 'availableVipTickets' : 'availableTickets']: {
                                     decrement: order.quantity
                                 }
                             }
@@ -64,6 +66,7 @@ export const paymentService = {
                             userId: order.userId,
                             orderId: order.id,
                             pricePaid: order.totalPrice / order.quantity,
+                            type: order.ticketType,
                             status: 'VALID',
                             qrCodeData: `qr-payload-${order.eventId}-${order.userId}-${Date.now()}-${i}`
                         }));
