@@ -3,6 +3,7 @@
 import { cookies } from 'next/headers';
 import { authService } from '../services/auth.service';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 export async function registerAction(formData: FormData) {
     const email = formData.get('email') as string;
@@ -43,12 +44,65 @@ export async function adminCreateUserAction(formData: FormData) {
 
     try {
         await authService.register(email, phone, password, fullName, role);
+        revalidatePath('/admin/users');
         return { success: true };
     } catch (error: any) {
         if (error.code === 'P2002') {
             return { error: 'Cet email ou numéro de téléphone est déjà utilisé.' };
         }
         return { error: 'Une erreur est survenue.' };
+    }
+}
+
+export async function adminUpdateUserAction(formData: FormData) {
+    const currentUser = await getCurrentUser();
+    if (!currentUser || currentUser.role !== 'ADMIN') {
+        return { error: 'Action non autorisée.' };
+    }
+
+    const id = formData.get('id') as string;
+    const email = formData.get('email') as string;
+    const phone = formData.get('phone') as string;
+    const fullName = formData.get('fullName') as string;
+    const role = formData.get('role') as any;
+    const password = formData.get('password') as string;
+
+    if (!id || !email || !phone || !fullName || !role) {
+        return { error: 'Champs obligatoires manquants.' };
+    }
+
+    try {
+        const data: any = { email, phoneNumber: phone, fullName, role };
+        if (password && password.trim() !== '') {
+            data.password = password;
+        }
+        await authService.updateUser(id, data);
+        revalidatePath('/admin/users');
+        return { success: true };
+    } catch (error: any) {
+        return { error: 'Une erreur est survenue lors de la mise à jour.' };
+    }
+}
+
+export async function adminDeleteUserAction(formData: FormData) {
+    const currentUser = await getCurrentUser();
+    if (!currentUser || currentUser.role !== 'ADMIN') {
+        return { error: 'Action non autorisée.' };
+    }
+
+    const id = formData.get('id') as string;
+    if (!id) return { error: 'ID manquant.' };
+
+    if (id === currentUser.id) {
+        return { error: 'Vous ne pouvez pas supprimer votre propre compte.' };
+    }
+
+    try {
+        await authService.deleteUser(id);
+        revalidatePath('/admin/users');
+        return { success: true };
+    } catch (error: any) {
+        return { error: 'Une erreur est survenue lors de la suppression.' };
     }
 }
 
