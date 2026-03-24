@@ -88,7 +88,7 @@ export const eventService = {
         }
     },
 
-    async createEvent(eventData: Omit<Event, 'id' | 'availableTickets'>): Promise<Event> {
+    async createEvent(eventData: Omit<Event, 'id' | 'availableTickets' | 'availableVipTickets'>): Promise<Event> {
         const event = await prisma.event.create({
             data: {
                 title: eventData.title,
@@ -96,14 +96,16 @@ export const eventService = {
                 location: eventData.location,
                 startDate: eventData.startDate ? new Date(eventData.startDate) : new Date(),
                 price: eventData.price,
+                vipPrice: eventData.vipPrice,
                 capacity: eventData.capacity,
                 availableTickets: eventData.capacity,
+                vipCapacity: eventData.vipCapacity,
+                availableVipTickets: eventData.vipCapacity,
                 status: eventData.status,
                 imageUrl: eventData.imageUrl,
                 organizer: {
-                    connect: { id: eventData.organizerId || 'usr-admin-1' } // Toujours le lier à un vrai utilisateur idéalement
+                    connect: { id: eventData.organizerId || 'usr-admin-1' }
                 }
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
         });
         return event as unknown as Event;
@@ -115,6 +117,9 @@ export const eventService = {
         if (dataToUpdate.id) delete dataToUpdate.id;
         if (dataToUpdate.organizerId) delete dataToUpdate.organizerId;
         if (dataToUpdate.startDate) dataToUpdate.startDate = new Date(dataToUpdate.startDate as string);
+
+        // Si la capacité VIP est mise à jour, on peut éventuellement vouloir recalculer availableVipTickets
+        // Mais restons simples pour l'instant.
 
         const event = await prisma.event.update({
             where: { id },

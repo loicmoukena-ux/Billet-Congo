@@ -51,13 +51,23 @@ export default async function EditEventPage({ params }: { params: Promise<{ id: 
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-300">Prix du billet (XAF)</label>
+                            <label className="block text-sm font-medium mb-2 text-neutral-300">Prix du billet STANDARD (XAF)</label>
                             <input type="number" name="price" defaultValue={event.price} min="0" required className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none" />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-300">Capacité (Nombre de places totales)</label>
+                            <label className="block text-sm font-medium mb-2 text-neutral-300">Capacité STANDARD (Places)</label>
                             <input type="number" name="capacity" defaultValue={event.capacity} min="1" required className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none" />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium mb-2 text-neutral-300">Prix du billet VIP (XAF) - Optionnel</label>
+                            <input type="number" name="vipPrice" defaultValue={event.vipPrice} min="0" className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none" />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium mb-2 text-neutral-300">Capacité VIP (Places) - Optionnel</label>
+                            <input type="number" name="vipCapacity" defaultValue={event.vipCapacity} min="0" className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none" />
                         </div>
 
                         <div className="md:col-span-2">

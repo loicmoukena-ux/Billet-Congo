@@ -67,7 +67,9 @@ export async function processGuestPaymentAction(formData: FormData): Promise<voi
     const event = await prisma.event.findUnique({ where: { id: eventId } });
     if (!event) throw new Error("Event not found");
 
-    const session = await paymentService.initCheckout(eventId, guestUser.id, quantity, event.price);
+    const ticketType = (formData.get('type') as string) || 'STANDARD';
+    const priceToUse = ticketType === 'VIP' ? (event.vipPrice || event.price) : event.price;
+    const session = await paymentService.initCheckout(eventId, guestUser.id, quantity, priceToUse, ticketType);
 
     let redirectUrl = '';
 

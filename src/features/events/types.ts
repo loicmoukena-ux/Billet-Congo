@@ -8,9 +8,12 @@ export interface Event {
     location: string;
     startDate: string; // ISO string
     price: number;
+    vipPrice?: number;
     currency: 'XAF'; // Franc CFA
     capacity: number;
     availableTickets: number;
+    vipCapacity?: number;
+    availableVipTickets?: number;
     status: EventStatus;
     organizerId: string;
 }
