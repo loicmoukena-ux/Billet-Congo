@@ -48,7 +48,14 @@ export default async function AdminUsersPage({ searchParams }: { searchParams: P
                             </Link>
                         </div>
                         <form 
-                            action={userToEdit ? adminUpdateUserAction : adminCreateUserAction} 
+                            action={async (formData) => {
+                                'use server';
+                                if (userToEdit) {
+                                    await adminUpdateUserAction(formData);
+                                } else {
+                                    await adminCreateUserAction(formData);
+                                }
+                            }} 
                             className="space-y-6"
                         >
                             {userToEdit && <input type="hidden" name="id" value={userToEdit.id} />}
@@ -168,7 +175,10 @@ export default async function AdminUsersPage({ searchParams }: { searchParams: P
                                                 </Link>
                                                 
                                                 {u.id !== user.id && (
-                                                    <form action={adminDeleteUserAction} onSubmit={(e) => {
+                                                    <form action={async (formData) => {
+                                                        'use server';
+                                                        await adminDeleteUserAction(formData);
+                                                    }} onSubmit={(e) => {
                                                         if(!confirm('Supprimer cet utilisateur ?')) e.preventDefault();
                                                     }}>
                                                         <input type="hidden" name="id" value={u.id} />
