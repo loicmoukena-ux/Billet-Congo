@@ -6,7 +6,7 @@ export const eventService = {
         try {
             const events = await prisma.event.findMany({
                 where: { status: 'PUBLISHED' },
-                orderBy: { startDate: 'asc' }
+                orderBy: { createdAt: 'desc' }
             });
             
             return events.map(e => ({
