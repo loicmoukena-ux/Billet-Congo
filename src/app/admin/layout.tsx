@@ -6,8 +6,12 @@ import Link from 'next/link';
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
     const user = await getCurrentUser();
 
-    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) {
+    if (!user) {
         redirect('/auth/login');
+    }
+
+    if (!['ADMIN', 'PROMOTER'].includes(user.role)) {
+        redirect('/auth/login?error=not_authorized');
     }
 
     return (

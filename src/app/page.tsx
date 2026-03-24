@@ -1,9 +1,15 @@
 import { getEvents } from '@/features/events/services/event.service';
 import { EventCard } from '@/features/events/components/EventCard';
 import { Button } from '@/shared/components/ui/Button';
+import { getCurrentUser } from '@/features/auth/server/auth.actions';
+import Link from 'next/link';
 
 export default async function Home() {
   const events = await getEvents();
+  const user = await getCurrentUser();
+  const organizeHref = user 
+    ? (user.role === 'CLIENT' ? '/auth/login?error=not_organizer' : '/admin/dashboard') 
+    : '/auth/login';
 
   return (
     <div className="container mx-auto px-4">
@@ -25,7 +31,9 @@ export default async function Home() {
               Découvrir
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </Button>
-            <Button size="lg" variant="outline" className="min-w-[200px]">Organiser</Button>
+            <Link href={organizeHref}>
+              <Button size="lg" variant="outline" className="min-w-[200px]">Organiser</Button>
+            </Link>
           </div>
         </div>
       </section>
