@@ -16,6 +16,15 @@ function LoginForm() {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        const errorParam = searchParams.get('error');
+        if (errorParam === 'not_organizer') {
+            setError('Désolé, vous n\'êtes pas un organisateur. Veuillez vous connecter avec un compte approprié.');
+        } else if (errorParam === 'not_authorized') {
+            setError('Vous n\'êtes pas autorisé à accéder à cette zone.');
+        } else if (errorParam === 'not_scanner') {
+            setError('Désolé, vous n\'avez pas les droits d\'accès au mode scanner.');
+        }
+
         if (searchParams.get('registered')) {
             setSuccess('Compte créé avec succès. Vous pouvez maintenant vous connecter.');
         }

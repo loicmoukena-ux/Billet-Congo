@@ -6,8 +6,12 @@ import Link from 'next/link';
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
     const user = await getCurrentUser();
 
-    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) {
+    if (!user) {
         redirect('/auth/login');
+    }
+
+    if (!['ADMIN', 'PROMOTER'].includes(user.role)) {
+        redirect('/auth/login?error=not_authorized');
     }
 
     return (
@@ -29,9 +33,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                     <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
                         💰 Ventes
                     </Link>
-                    <Link href="/admin/users" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
-                        👥 Utilisateurs
-                    </Link>
+                    {user.role === 'ADMIN' && (
+                        <Link href="/admin/users" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
+                            👥 Utilisateurs
+                        </Link>
+                    )}
                 </nav>
                 <div className="p-4 border-t border-white/10">
                     <form action={logoutAction}>

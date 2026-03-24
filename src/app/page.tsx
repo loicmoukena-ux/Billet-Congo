@@ -1,10 +1,15 @@
 import { getEvents } from '@/features/events/services/event.service';
 import { EventCard } from '@/features/events/components/EventCard';
 import { Button } from '@/shared/components/ui/Button';
+import { getCurrentUser } from '@/features/auth/server/auth.actions';
 import Link from 'next/link';
 
 export default async function Home() {
   const events = await getEvents();
+  const user = await getCurrentUser();
+  const organizeHref = user 
+    ? (user.role === 'CLIENT' ? '/auth/login?error=not_organizer' : '/admin/dashboard') 
+    : '/auth/login';
 
   return (
     <div className="container mx-auto px-4">
@@ -22,13 +27,16 @@ export default async function Home() {
             La billetterie nouvelle génération pour le Congo. Découvrez, réservez et vibrez aux rythmes des meilleurs événements.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up [animation-delay:0.2s]">
-            <Button asChild size="lg" className="px-10 group min-w-[200px]">
-              <Link href="/events">
-                Découvrir
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <Button asChild size="lg" className="min-w-[200px] group flex items-center justify-center gap-2 px-0">
+              <Link href="/events" className="flex items-center justify-center w-full h-full px-10">
+                <span className="w-5 h-5 invisible" aria-hidden="true" />
+                <span className="flex-1 text-center">Découvrir</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="min-w-[200px]">Organiser</Button>
+            <Link href={organizeHref}>
+              <Button size="lg" variant="outline" className="min-w-[200px]">Organiser</Button>
+            </Link>
           </div>
         </div>
       </section>

@@ -6,8 +6,12 @@ import Link from 'next/link';
 export default async function ScannerLayout({ children }: { children: React.ReactNode }) {
     const user = await getCurrentUser();
 
-    if (!user || !['ADMIN', 'SCANNER'].includes(user.role)) {
+    if (!user) {
         redirect('/auth/login');
+    }
+
+    if (!['ADMIN', 'SCANNER'].includes(user.role)) {
+        redirect('/auth/login?error=not_scanner');
     }
 
     return (

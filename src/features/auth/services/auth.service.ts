@@ -78,5 +78,33 @@ export const authService = {
         }
 
         return null;
+    },
+
+    async getUsers(): Promise<User[]> {
+        const users = await prisma.user.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+        return users as unknown as User[];
+    },
+
+    async updateUser(id: string, data: Partial<User>): Promise<User> {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const dataToUpdate: any = { ...data };
+        if (dataToUpdate.id) delete dataToUpdate.id;
+        if (dataToUpdate.password) {
+            dataToUpdate.password = await bcrypt.hash(dataToUpdate.password, 10);
+        }
+
+        const user = await prisma.user.update({
+            where: { id },
+            data: dataToUpdate
+        });
+        return user as unknown as User;
+    },
+
+    async deleteUser(id: string): Promise<void> {
+        await prisma.user.delete({
+            where: { id }
+        });
     }
 };
