@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { Card } from '@/shared/components/ui/Card';
 import { Button } from '@/shared/components/ui/Button';
 import Link from 'next/link';
+import { DeleteUserForm } from '@/features/auth/components/DeleteUserForm';
 
 export default async function AdminUsersPage({ searchParams }: { searchParams: Promise<{ edit?: string, add?: string }> }) {
     const user = await getCurrentUser();
@@ -174,19 +175,10 @@ export default async function AdminUsersPage({ searchParams }: { searchParams: P
                                                     </Button>
                                                 </Link>
                                                 
-                                                {u.id !== user.id && (
-                                                    <form action={async (formData) => {
-                                                        'use server';
-                                                        await adminDeleteUserAction(formData);
-                                                    }} onSubmit={(e) => {
-                                                        if(!confirm('Supprimer cet utilisateur ?')) e.preventDefault();
-                                                    }}>
-                                                        <input type="hidden" name="id" value={u.id} />
-                                                        <Button variant="ghost" size="sm" type="submit" className="text-red-400 hover:bg-red-500/10" title="Supprimer">
-                                                            🗑️
-                                                        </Button>
-                                                    </form>
-                                                )}
+                                                <DeleteUserForm 
+                                                    userId={u.id} 
+                                                    currentUserId={user.id} 
+                                                />
                                             </div>
                                         </td>
                                     </tr>
