@@ -43,8 +43,10 @@ function LoginForm() {
             setError(result.error);
             setIsLoading(false);
         } else if (result.success) {
-            if (result.role === 'ADMIN') {
+            if (result.role === 'ADMIN' || result.role === 'PROMOTER') {
                 router.push('/admin/dashboard');
+            } else if (result.role === 'SCANNER') {
+                router.push('/scanner');
             } else {
                 router.push('/account');
             }
