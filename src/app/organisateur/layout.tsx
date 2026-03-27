@@ -3,14 +3,16 @@ import { redirect } from 'next/navigation';
 import { Button } from '@/shared/components/ui/Button';
 import Link from 'next/link';
 
-export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function OrganisateurLayout({ children }: { children: React.ReactNode }) {
     const user = await getCurrentUser();
+    const role = user?.role?.toUpperCase();
 
     if (!user) {
         redirect('/auth/login');
     }
 
-    const isAuthorized = user.role.toUpperCase() === 'ADMIN' || user.role.toUpperCase() === 'PROMOTER';
+    // Seuls les PROMOTER et ADMIN peuvent accéder à cet espace
+    const isAuthorized = role === 'ADMIN' || role === 'PROMOTER';
     
     if (!isAuthorized) {
         redirect('/auth/login?error=not_authorized');
@@ -18,39 +20,35 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
     return (
         <div className="min-h-screen bg-neutral-950 flex">
-            {/* Sidebar Admin Commune */}
+            {/* Sidebar Organisateur */}
             <aside className="w-64 bg-neutral-900 border-r border-white/10 hidden md:flex flex-col h-screen sticky top-0">
                 <div className="p-6 border-b border-white/10">
                     <Link href="/" className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
                         Billet Congo
                     </Link>
+                    <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-widest mt-1">Espace Organisateur</p>
                 </div>
 
                 {/* Infos utilisateur connecté */}
                 <div className="px-4 py-3 border-b border-white/5">
                     <p className="text-sm font-semibold text-white truncate">{user.fullName}</p>
-                    <span className={`inline-block mt-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                        user.role === 'ADMIN'
-                            ? 'bg-red-500/20 text-red-400'
-                            : 'bg-indigo-500/20 text-indigo-400'
-                    }`}>
-                        {user.role === 'ADMIN' ? 'Administrateur' : 'Organisateur'}
+                    <span className="inline-block mt-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-400">
+                        {role === 'ADMIN' ? 'Administrateur' : 'Organisateur'}
                     </span>
                 </div>
 
                 <nav className="flex-1 p-4 space-y-2">
-                    <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
-                        📊 Vue Générale
+                    <Link href="/organisateur/dashboard" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
+                        📊 Tableau de bord
                     </Link>
-                    <Link href="/admin/events" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
-                        🎟️ Événements
+                    <Link href="/organisateur/events" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
+                        🎟️ Mes Événements
                     </Link>
-                    {user.role === 'ADMIN' && (
-                        <Link href="/admin/users" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
-                            👥 Utilisateurs
-                        </Link>
-                    )}
+                    <Link href="/organisateur/events/new" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
+                        ➕ Créer un événement
+                    </Link>
                 </nav>
+
                 <div className="p-4 border-t border-white/10">
                     <form action={logoutAction}>
                         <Button variant="ghost" fullWidth type="submit" className="justify-start gap-3">
@@ -60,7 +58,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                 </div>
             </aside>
 
-            {/* Contenu Principal (Dashboard ou Events) */}
+            {/* Contenu Principal */}
             <main className="flex-1 overflow-y-auto">
                 {children}
             </main>

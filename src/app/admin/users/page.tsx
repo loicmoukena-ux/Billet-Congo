@@ -11,7 +11,7 @@ export default async function AdminUsersPage() {
     const currentUser = await getCurrentUser();
     
     // Protection : seul l'ADMIN peut accéder à cette page
-    if (!currentUser || currentUser.role !== 'ADMIN') {
+    if (!currentUser || currentUser.role.toUpperCase() !== 'ADMIN') {
         redirect('/admin/dashboard');
     }
 

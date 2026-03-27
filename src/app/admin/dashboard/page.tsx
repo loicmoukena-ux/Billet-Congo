@@ -7,7 +7,10 @@ import { eventService } from '@/features/events/services/event.service';
 
 export default async function AdminDashboardPage() {
     const user = await getCurrentUser();
-    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) redirect('/auth/login');
+    const role = user?.role?.toUpperCase();
+    if (!user || (role !== 'ADMIN' && role !== 'PROMOTER')) {
+        redirect('/auth/login?error=not_authorized');
+    }
 
     const stats = await eventService.getDashboardStats(user.id, user.role);
 
@@ -16,16 +19,16 @@ export default async function AdminDashboardPage() {
             <div className="flex justify-between items-center mb-10">
                 <div>
                     <h1 className="text-3xl font-bold mb-2">
-                        {user.role === 'ADMIN' ? 'Administrateur' : 'Organisateur'}
+                        {role === 'ADMIN' ? 'Administrateur' : 'Organisateur'}
                     </h1>
                     <p className="text-neutral-400">
-                        {user.role === 'ADMIN' 
+                        {role === 'ADMIN' 
                             ? 'Vue globale et gestion complète de la plateforme.' 
                             : 'Gérez vos événements et suivez vos statistiques de vente.'}
                     </p>
                 </div>
                 <div className="flex gap-4">
-                    {user.role === 'ADMIN' && (
+                    {role === 'ADMIN' && (
                         <Link href="/admin/users">
                             <Button variant="outline">Gérer les utilisateurs</Button>
                         </Link>

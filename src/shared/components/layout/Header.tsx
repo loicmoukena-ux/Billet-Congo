@@ -33,11 +33,13 @@ export const Header = async () => {
               <div className="flex items-center gap-3">
                 <Link
                   href={
-                    ['ADMIN', 'PROMOTER'].includes(user.role) 
+                    user.role.toUpperCase() === 'ADMIN' 
                       ? "/admin/dashboard" 
-                      : user.role === 'SCANNER' 
-                        ? "/scanner" 
-                        : "/account"
+                      : user.role.toUpperCase() === 'PROMOTER'
+                        ? "/organisateur/dashboard"
+                        : user.role.toUpperCase() === 'SCANNER' 
+                          ? "/scanner" 
+                          : "/account"
                   }
                   className="text-sm font-medium glass text-white px-4 py-2 rounded-full hover:bg-white/10 transition-all flex items-center gap-2"
                 >

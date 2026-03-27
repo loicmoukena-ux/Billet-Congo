@@ -55,11 +55,13 @@ export const MobileMenu = ({ user }: MobileMenuProps) => {
                 <div className="flex flex-col gap-4">
                   <Link
                     href={
-                      ['ADMIN', 'PROMOTER'].includes(user.role) 
+                      user.role.toUpperCase() === 'ADMIN' 
                         ? "/admin/dashboard" 
-                        : user.role === 'SCANNER' 
-                          ? "/scanner" 
-                          : "/account"
+                        : user.role.toUpperCase() === 'PROMOTER'
+                          ? "/organisateur/dashboard"
+                          : user.role.toUpperCase() === 'SCANNER' 
+                            ? "/scanner" 
+                            : "/account"
                     }
                     onClick={() => setIsOpen(false)}
                     className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10"

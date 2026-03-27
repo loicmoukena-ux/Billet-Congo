@@ -8,13 +8,15 @@ import Link from 'next/link';
 
 export default async function AccountPage() {
     const user = await getCurrentUser();
-
+    const role = user?.role?.toUpperCase();
     if (!user) {
         redirect('/auth/login');
     }
 
-    if (['ADMIN', 'PROMOTER'].includes(user.role)) {
+    if (role === 'ADMIN') {
         redirect('/admin/dashboard');
+    } else if (role === 'PROMOTER') {
+        redirect('/organisateur/dashboard');
     }
 
     const tickets = await paymentService.getUserTickets(user.id);
@@ -67,7 +69,16 @@ export default async function AccountPage() {
                                                     🎫
                                                 </div>
                                                 <h3 className="font-bold text-lg mb-1 truncate">{event?.title || 'Événement inconnu'}</h3>
-                                                <p className="text-sm text-neutral-400 mb-4 truncate">{event?.location || 'Lieu inconnu'}</p>
+                                                <div className="flex items-center gap-2 mb-4">
+                                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                                                        ticket.type === 'VIP' 
+                                                        ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' 
+                                                        : 'bg-neutral-800 text-neutral-400 border border-white/5'
+                                                    }`}>
+                                                        {ticket.type === 'VIP' ? '👑 VIP' : 'Standard'}
+                                                    </span>
+                                                    <p className="text-xs text-neutral-400 truncate -mb-0.5">{event?.location || 'Lieu inconnu'}</p>
+                                                </div>
 
                                                 <div className="flex justify-between items-center text-sm pt-4 border-t border-white/5">
                                                     <span className="text-neutral-500">Réf: {ticket.reference}</span>

@@ -43,9 +43,12 @@ function LoginForm() {
             setError(result.error);
             setIsLoading(false);
         } else if (result.success) {
-            if (result.role === 'ADMIN' || result.role === 'PROMOTER') {
+            const userRole = result.role?.toUpperCase();
+            if (userRole === 'ADMIN') {
                 router.push('/admin/dashboard');
-            } else if (result.role === 'SCANNER') {
+            } else if (userRole === 'PROMOTER') {
+                router.push('/organisateur/dashboard');
+            } else if (userRole === 'SCANNER') {
                 router.push('/scanner');
             } else {
                 router.push('/account');

@@ -9,6 +9,7 @@ export interface Ticket {
     pricePaid: number;
     status: TicketStatus;
     qrCodeData: string;
+    type: 'STANDARD' | 'VIP';
     downloadCount: number;
 }
 
@@ -18,6 +19,7 @@ export interface CheckoutSession {
     userId: string;
     quantity: number;
     totalPrice: number;
+    ticketType: 'STANDARD' | 'VIP';
     status: 'PENDING' | 'COMPLETED' | 'CANCELLED';
     expiresAt: string;
 }

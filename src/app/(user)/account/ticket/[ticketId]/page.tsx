@@ -57,7 +57,11 @@ export default async function TicketPage({ params }: PageProps) {
                             <span className="text-2xl text-white">🎟️</span>
                         </div>
                         <h1 className="text-2xl font-bold mb-2 uppercase leading-tight">{event.title}</h1>
-                        <p className="text-neutral-500 font-medium">Billet Standard</p>
+                        <p className={`font-bold uppercase tracking-widest text-sm ${
+                            ticket.type === 'VIP' ? 'text-amber-500' : 'text-neutral-500'
+                        }`}>
+                            {ticket.type === 'VIP' ? '👑 Billet VIP' : 'Billet Standard'}
+                        </p>
                     </div>
 
                     <div className="p-8 space-y-4">

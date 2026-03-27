@@ -8,7 +8,8 @@ import { EventStatus } from '../types';
 
 export async function createOrUpdateEventAction(formData: FormData) {
     const user = await getCurrentUser();
-    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) {
+    const userRole = user?.role?.toUpperCase() || '';
+    if (!user || !['ADMIN', 'PROMOTER'].includes(userRole)) {
         throw new Error('Non autorisé');
     }
 
@@ -33,7 +34,7 @@ export async function createOrUpdateEventAction(formData: FormData) {
 
     if (id) {
         // Update check
-        if (user.role === 'PROMOTER') {
+        if (userRole === 'PROMOTER') {
             const event = await eventService.getEventById(id);
             if (!event || event.organizerId !== user.id) {
                 throw new Error('Non autorisé à modifier cet événement');
@@ -52,21 +53,23 @@ export async function createOrUpdateEventAction(formData: FormData) {
         });
     }
 
+    const redirectPath = user.role.toUpperCase() === 'ADMIN' ? '/admin/events' : '/organisateur/events';
     revalidatePath('/admin/events');
+    revalidatePath('/organisateur/events');
     revalidatePath('/');
-    redirect('/admin/events');
+    redirect(redirectPath);
 }
 
 export async function deleteEventAction(formData: FormData) {
     const user = await getCurrentUser();
-    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) {
+    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role.toUpperCase())) {
         throw new Error('Non autorisé');
     }
 
     const id = formData.get('id') as string;
     if (!id) throw new Error('ID manquant');
 
-    if (user.role === 'PROMOTER') {
+    if (user.role.toUpperCase() === 'PROMOTER') {
         const event = await eventService.getEventById(id);
         if (!event || event.organizerId !== user.id) {
             throw new Error('Non autorisé à supprimer cet événement');
@@ -76,19 +79,20 @@ export async function deleteEventAction(formData: FormData) {
     await eventService.deleteEvent(id);
 
     revalidatePath('/admin/events');
+    revalidatePath('/organisateur/events');
     revalidatePath('/');
 }
 
 export async function toggleEventStatusAction(formData: FormData) {
     const user = await getCurrentUser();
-    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role)) {
+    if (!user || !['ADMIN', 'PROMOTER'].includes(user.role.toUpperCase())) {
         throw new Error('Non autorisé');
     }
 
     const id = formData.get('id') as string;
     const currentStatus = formData.get('currentStatus') as EventStatus;
 
-    if (user.role === 'PROMOTER') {
+    if (user.role.toUpperCase() === 'PROMOTER') {
         const event = await eventService.getEventById(id);
         if (!event || event.organizerId !== user.id) {
             throw new Error('Non autorisé à modifier le statut de cet événement');
@@ -100,5 +104,6 @@ export async function toggleEventStatusAction(formData: FormData) {
     await eventService.updateEvent(id, { status: newStatus });
 
     revalidatePath('/admin/events');
+    revalidatePath('/organisateur/events');
     revalidatePath('/');
 }
