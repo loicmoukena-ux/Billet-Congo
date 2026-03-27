@@ -15,8 +15,14 @@ export default async function AdminDashboardPage() {
         <div className="p-8 md:p-12">
             <div className="flex justify-between items-center mb-10">
                 <div>
-                    <h1 className="text-3xl font-bold mb-2">Tableau de bord</h1>
-                    <p className="text-neutral-400">Gérez votre plateforme de billetterie en temps réel.</p>
+                    <h1 className="text-3xl font-bold mb-2">
+                        {user.role === 'ADMIN' ? 'Administrateur' : 'Organisateur'}
+                    </h1>
+                    <p className="text-neutral-400">
+                        {user.role === 'ADMIN' 
+                            ? 'Vue globale et gestion complète de la plateforme.' 
+                            : 'Gérez vos événements et suivez vos statistiques de vente.'}
+                    </p>
                 </div>
                 <div className="flex gap-4">
                     {user.role === 'ADMIN' && (

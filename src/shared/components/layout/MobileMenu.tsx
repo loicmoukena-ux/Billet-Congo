@@ -54,14 +54,24 @@ export const MobileMenu = ({ user }: MobileMenuProps) => {
               {user ? (
                 <div className="flex flex-col gap-4">
                   <Link
-                    href={user.role === 'ADMIN' ? "/admin/dashboard" : "/account"}
+                    href={
+                      ['ADMIN', 'PROMOTER'].includes(user.role) 
+                        ? "/admin/dashboard" 
+                        : user.role === 'SCANNER' 
+                          ? "/scanner" 
+                          : "/account"
+                    }
                     onClick={() => setIsOpen(false)}
                     className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10"
                   >
                     <span className="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center text-sm font-bold text-white">
                       {user.fullName?.charAt(0) || 'U'}
                     </span>
-                    <span className="text-white font-medium">{user.role === 'ADMIN' ? 'Admin' : 'Mon Compte'}</span>
+                    <span className="text-white font-medium">
+                      {user.role === 'ADMIN' ? 'Admin' : 
+                       user.role === 'PROMOTER' ? 'Organisateur' : 
+                       user.role === 'SCANNER' ? 'Scanner' : 'Mon Compte'}
+                    </span>
                   </Link>
                   
                   <button

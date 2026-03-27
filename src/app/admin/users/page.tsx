@@ -1,6 +1,7 @@
 import React from 'react';
 import { authService } from '@/features/auth/services/auth.service';
-import { getCurrentUser, adminDeleteUserAction } from '@/features/auth/server/auth.actions';
+import { getCurrentUser } from '@/features/auth/server/auth.actions';
+import { DeleteUserButton } from '@/features/auth/components/DeleteUserButton';
 import { redirect } from 'next/navigation';
 import { Button } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
@@ -75,20 +76,9 @@ export default async function AdminUsersPage() {
                                                         ✏️
                                                     </Button>
                                                 </Link>
-                                                                                                {u.id !== currentUser.id && (
-                                                    <form action={async (formData) => {
-                                                        'use server';
-                                                        await adminDeleteUserAction(formData);
-                                                    }} onSubmit={(e) => {
-                                                        if (!confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
-                                                            e.preventDefault();
-                                                        }
-                                                    }}>
-                                                        <input type="hidden" name="id" value={u.id} />
-                                                        <Button variant="ghost" size="sm" className="text-red-400 hover:bg-red-500/10" title="Supprimer">
-                                                            🗑️
-                                                        </Button>
-                                                    </form>
+                                                
+                                                {u.id !== currentUser.id && (
+                                                    <DeleteUserButton userId={u.id} />
                                                 )}
                                             </div>
                                         </td>

@@ -13,6 +13,10 @@ export default async function AccountPage() {
         redirect('/auth/login');
     }
 
+    if (['ADMIN', 'PROMOTER'].includes(user.role)) {
+        redirect('/admin/dashboard');
+    }
+
     const tickets = await paymentService.getUserTickets(user.id);
     const events = await eventService.getEvents();
 
