@@ -95,7 +95,9 @@ export default async function AccountPage() {
                                 <div className="text-white font-medium">{user.email}</div>
                             </div>
                         </div>
-                        <Button variant="secondary" className="w-full mt-6" size="sm">Modifier</Button>
+                        <Link href="/account/edit" className="block mt-6">
+                            <Button variant="secondary" fullWidth size="sm">Modifier mon profil</Button>
+                        </Link>
                     </Card>
                 </div>
             </div>

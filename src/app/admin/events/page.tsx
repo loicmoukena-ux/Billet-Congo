@@ -79,7 +79,10 @@ export default async function AdminEventsPage() {
                                         </td>
                                         <td className="p-4 text-right">
                                             <div className="flex items-center justify-end gap-2">
-                                                <form action={toggleEventStatusAction}>
+                                                <form action={async (formData) => {
+                                                    'use server';
+                                                    await toggleEventStatusAction(formData);
+                                                }}>
                                                     <input type="hidden" name="id" value={event.id} />
                                                     <input type="hidden" name="currentStatus" value={event.status} />
                                                     <Button variant="ghost" size="sm" type="submit" className="text-neutral-400 hover:text-white" title={event.status === 'PUBLISHED' ? 'Passer en brouillon' : 'Publier'}>
@@ -93,9 +96,12 @@ export default async function AdminEventsPage() {
                                                     </Button>
                                                 </Link>
 
-                                                <form action={deleteEventAction}>
+                                                <form action={async (formData) => {
+                                                    'use server';
+                                                    await deleteEventAction(formData);
+                                                }}>
                                                     <input type="hidden" name="id" value={event.id} />
-                                                    <Button variant="ghost" size="sm" type="submit" className="text-red-400 hover:bg-red-500/10" title="Supprimer" formAction={deleteEventAction}>
+                                                    <Button variant="ghost" size="sm" type="submit" className="text-red-400 hover:bg-red-500/10" title="Supprimer">
                                                         🗑️
                                                     </Button>
                                                 </form>

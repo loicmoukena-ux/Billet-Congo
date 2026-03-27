@@ -106,6 +106,32 @@ export async function adminDeleteUserAction(formData: FormData) {
     }
 }
 
+export async function updateAccountAction(formData: FormData) {
+    const user = await getCurrentUser();
+    if (!user) return { error: 'Non authentifié' };
+
+    const email = formData.get('email') as string;
+    const phone = formData.get('phone') as string;
+    const fullName = formData.get('fullName') as string;
+    const password = formData.get('password') as string;
+
+    if (!email || !phone || !fullName) {
+        return { error: 'Champs obligatoires manquants.' };
+    }
+
+    try {
+        const data: any = { email, phoneNumber: phone, fullName };
+        if (password && password.trim() !== '') {
+            data.password = password;
+        }
+        await authService.updateUser(user.id, data);
+        revalidatePath('/account');
+        return { success: true };
+    } catch (error: any) {
+        return { error: 'Une erreur est survenue lors de la mise à jour.' };
+    }
+}
+
 export async function loginAction(formData: FormData) {
     const phone = formData.get('phone') as string;
     const password = formData.get('password') as string;

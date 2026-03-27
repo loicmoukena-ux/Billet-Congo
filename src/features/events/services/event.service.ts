@@ -2,11 +2,41 @@ import { Event } from '../types';
 import prisma from '@/lib/prisma';
 
 export const eventService = {
-    async getEvents(): Promise<Event[]> {
+    async getEvents(params?: { q?: string; sort?: string; vip?: string; available?: string }): Promise<Event[]> {
         try {
+            const where: any = { status: 'PUBLISHED' };
+
+            if (params?.q) {
+                const query = params.q;
+                where.OR = [
+                    { title: { contains: query, mode: 'insensitive' } },
+                    { location: { contains: query, mode: 'insensitive' } },
+                    { description: { contains: query, mode: 'insensitive' } },
+                ];
+            }
+
+            if (params?.available === '1') {
+                where.availableTickets = { gt: 0 };
+            }
+
+            if (params?.vip === '1') {
+                where.vipPrice = { not: null };
+                where.availableVipTickets = { gt: 0 };
+            }
+
+            let orderBy: any = { startDate: 'asc' }; // Défaut : date la plus proche
+            if (params?.sort) {
+                switch (params.sort) {
+                    case 'date-asc': orderBy = { startDate: 'asc' }; break;
+                    case 'date-desc': orderBy = { startDate: 'desc' }; break;
+                    case 'price-asc': orderBy = { price: 'asc' }; break;
+                    case 'price-desc': orderBy = { price: 'desc' }; break;
+                }
+            }
+
             const events = await prisma.event.findMany({
-                where: { status: 'PUBLISHED' },
-                orderBy: { createdAt: 'desc' }
+                where,
+                orderBy
             });
             
             return events.map(e => ({
