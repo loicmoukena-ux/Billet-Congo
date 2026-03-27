@@ -28,6 +28,7 @@ model Event {
   imageUrl         String?
   location         String
   startDate        DateTime
+  endDate          DateTime?
   price            Float
   vipPrice         Float?
   currency         String   @default("XAF")

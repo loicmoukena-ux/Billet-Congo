@@ -42,6 +42,7 @@ export const eventService = {
             return events.map(e => ({
                 ...e,
                 startDate: e.startDate.toISOString(),
+                endDate: e.endDate?.toISOString(),
                 createdAt: e.createdAt.toISOString(),
                 updatedAt: e.updatedAt.toISOString(),
             })) as unknown as Event[];
@@ -61,6 +62,7 @@ export const eventService = {
             return events.map(e => ({
                 ...e,
                 startDate: e.startDate.toISOString(),
+                endDate: e.endDate?.toISOString(),
                 createdAt: e.createdAt.toISOString(),
                 updatedAt: e.updatedAt.toISOString(),
             })) as unknown as Event[];
@@ -109,6 +111,7 @@ export const eventService = {
             return {
                 ...event,
                 startDate: event.startDate.toISOString(),
+                endDate: event.endDate?.toISOString(),
                 createdAt: event.createdAt.toISOString(),
                 updatedAt: event.updatedAt.toISOString(),
             } as unknown as Event;
@@ -125,6 +128,7 @@ export const eventService = {
                 description: eventData.description,
                 location: eventData.location,
                 startDate: eventData.startDate ? new Date(eventData.startDate) : new Date(),
+                endDate: eventData.endDate ? new Date(eventData.endDate) : undefined,
                 price: eventData.price,
                 vipPrice: eventData.vipPrice,
                 capacity: eventData.capacity,
@@ -147,6 +151,7 @@ export const eventService = {
         if (dataToUpdate.id) delete dataToUpdate.id;
         if (dataToUpdate.organizerId) delete dataToUpdate.organizerId;
         if (dataToUpdate.startDate) dataToUpdate.startDate = new Date(dataToUpdate.startDate as string);
+        if (dataToUpdate.endDate) dataToUpdate.endDate = new Date(dataToUpdate.endDate as string);
 
         // Si la capacité VIP est mise à jour, on peut éventuellement vouloir recalculer availableVipTickets
         // Mais restons simples pour l'instant.

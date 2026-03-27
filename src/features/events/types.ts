@@ -7,6 +7,7 @@ export interface Event {
     imageUrl?: string;
     location: string;
     startDate: string; // ISO string
+    endDate?: string;  // ISO string
     price: number;
     vipPrice?: number;
     currency: 'XAF'; // Franc CFA

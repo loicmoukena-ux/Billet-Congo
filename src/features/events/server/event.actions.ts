@@ -18,6 +18,7 @@ export async function createOrUpdateEventAction(formData: FormData) {
     const description = formData.get('description') as string;
     const location = formData.get('location') as string;
     const startDate = formData.get('startDate') as string; // datetime-local format
+    const endDate = formData.get('endDate') as string; // datetime-local format
     const price = parseInt(formData.get('price') as string, 10);
     const vipPriceStr = formData.get('vipPrice') as string;
     const vipPrice = vipPriceStr ? parseInt(vipPriceStr, 10) : undefined;
@@ -27,10 +28,21 @@ export async function createOrUpdateEventAction(formData: FormData) {
     const vipCapacity = vipCapacityStr ? parseInt(vipCapacityStr, 10) : undefined;
 
     const status = formData.get('status') as EventStatus;
-    const imageUrl = formData.get('imageUrl') as string;
+    
+    // Gestion de l'image (URL ou Upload)
+    const imageFile = formData.get('imageFile') as File | null;
+    let finalImageUrl = formData.get('imageUrl') as string;
+
+    if (imageFile && imageFile.size > 0) {
+        const arrayBuffer = await imageFile.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const base64 = buffer.toString('base64');
+        finalImageUrl = `data:${imageFile.type};base64,${base64}`;
+    }
 
     // Conversion simple date locale en ISO
-    const isoDate = new Date(startDate).toISOString();
+    const isoStartDate = new Date(startDate).toISOString();
+    const isoEndDate = endDate ? new Date(endDate).toISOString() : undefined;
 
     if (id) {
         // Update check
@@ -43,12 +55,12 @@ export async function createOrUpdateEventAction(formData: FormData) {
 
         // Update
         await eventService.updateEvent(id, {
-            title, description, location, startDate: isoDate, price, vipPrice, capacity, vipCapacity, status, imageUrl
+            title, description, location, startDate: isoStartDate, endDate: isoEndDate, price, vipPrice, capacity, vipCapacity, status, imageUrl: finalImageUrl
         });
     } else {
         // Create
         await eventService.createEvent({
-            title, description, location, startDate: isoDate, price, vipPrice, capacity, vipCapacity, status, imageUrl,
+            title, description, location, startDate: isoStartDate, endDate: isoEndDate, price, vipPrice, capacity, vipCapacity, status, imageUrl: finalImageUrl,
             currency: 'XAF', organizerId: user.id
         });
     }

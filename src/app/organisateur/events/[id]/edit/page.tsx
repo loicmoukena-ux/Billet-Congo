@@ -24,7 +24,8 @@ export default async function OrganisateurEditEventPage({ params }: { params: { 
     }
 
     // Conversion ISO en datetime-local
-    const formattedDate = new Date(event.startDate).toISOString().slice(0, 16);
+    const formattedStartDate = new Date(event.startDate).toISOString().slice(0, 16);
+    const formattedEndDate = event.endDate ? new Date(event.endDate).toISOString().slice(0, 16) : '';
 
     return (
         <div className="p-8 md:p-12 max-w-4xl mx-auto">
@@ -56,9 +57,15 @@ export default async function OrganisateurEditEventPage({ params }: { params: { 
                             <input type="text" name="location" defaultValue={event.location} required className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all" />
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-400 uppercase tracking-widest text-[10px] font-bold">Date et Heure</label>
-                            <input type="datetime-local" name="startDate" defaultValue={formattedDate} required className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all" />
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium mb-2 text-neutral-400 uppercase tracking-widest text-[10px] font-bold">Début</label>
+                                <input type="datetime-local" name="startDate" defaultValue={formattedStartDate} required className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium mb-2 text-neutral-400 uppercase tracking-widest text-[10px] font-bold">Fin (Opt.)</label>
+                                <input type="datetime-local" name="endDate" defaultValue={formattedEndDate} className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all" />
+                            </div>
                         </div>
 
                         <div>
@@ -82,8 +89,19 @@ export default async function OrganisateurEditEventPage({ params }: { params: { 
                         </div>
 
                         <div className="md:col-span-2">
-                            <label className="block text-sm font-medium mb-2 text-neutral-400 uppercase tracking-widest text-[10px] font-bold">URL de l&apos;Affiche (Illustration)</label>
-                            <input type="url" name="imageUrl" defaultValue={event.imageUrl || ''} className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all" />
+                            <label className="block text-sm font-medium mb-2 text-neutral-400 uppercase tracking-widest text-[10px] font-bold">Changer la photo de l&apos;Affiche</label>
+                            <div className="flex flex-col md:flex-row gap-6 items-start">
+                                {event.imageUrl && (
+                                    <div className="w-32 h-44 rounded-xl overflow-hidden border border-white/10 bg-neutral-950 flex-shrink-0">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img src={event.imageUrl} alt="Actuelle" className="w-full h-full object-cover opacity-70" />
+                                    </div>
+                                )}
+                                <div className="flex-1 w-full space-y-4">
+                                    <input type="file" name="imageFile" accept="image/*" className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-indigo-500/10 file:text-indigo-400 hover:file:bg-indigo-500/20 cursor-pointer" />
+                                    <input type="url" name="imageUrl" defaultValue={event.imageUrl || ''} placeholder="Ou URL de l'image..." className="w-full bg-neutral-950/50 border border-white/5 rounded-xl px-4 py-3 text-neutral-400 focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-sm" />
+                                </div>
+                            </div>
                         </div>
 
                         <div className="md:col-span-2 text-indigo-400 bg-indigo-500/5 p-4 rounded-xl border border-indigo-500/10 mb-4">

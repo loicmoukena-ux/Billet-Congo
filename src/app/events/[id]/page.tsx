@@ -59,15 +59,20 @@ export default async function EventDetailPage({ params }: PageProps) {
         notFound();
     }
 
-    const dateObj = new Date(event.startDate);
-    const formattedDate = new Intl.DateTimeFormat('fr-FR', {
+    const startDateObj = new Date(event.startDate);
+    const endDateObj = event.endDate ? new Date(event.endDate) : null;
+
+    const dateFormatter = new Intl.DateTimeFormat('fr-FR', {
         weekday: 'long',
         day: 'numeric',
         month: 'long',
         year: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
-    }).format(dateObj);
+    });
+
+    const formattedStartDate = dateFormatter.format(startDateObj);
+    const formattedEndDate = endDateObj ? dateFormatter.format(endDateObj) : null;
 
     return (
         <div className="min-h-screen bg-neutral-950">
@@ -116,7 +121,16 @@ export default async function EventDetailPage({ params }: PageProps) {
                                     </div>
                                     <div>
                                         <div className="text-sm text-neutral-400 font-medium mb-1">Date & Heure</div>
-                                        <div className="font-semibold text-white capitalize">{formattedDate}</div>
+                                        <div className="font-semibold text-white capitalize text-balance">
+                                            {formattedEndDate ? (
+                                                <div className="flex flex-col">
+                                                    <span>Du {formattedStartDate}</span>
+                                                    <span className="text-indigo-400">au {formattedEndDate}</span>
+                                                </div>
+                                            ) : (
+                                                formattedStartDate
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
 

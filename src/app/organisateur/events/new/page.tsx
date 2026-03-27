@@ -33,8 +33,13 @@ export default function OrganisateurNewEventPage() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-400 uppercase tracking-widest text-[10px] font-bold">Date et Heure</label>
+                            <label className="block text-sm font-medium mb-2 text-neutral-400 uppercase tracking-widest text-[10px] font-bold">Date et Heure de Début</label>
                             <input type="datetime-local" name="startDate" required className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all" />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium mb-2 text-neutral-400 uppercase tracking-widest text-[10px] font-bold">Date et Heure de Fin (Optionnel)</label>
+                            <input type="datetime-local" name="endDate" className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all" />
                         </div>
 
                         <div>
@@ -58,8 +63,14 @@ export default function OrganisateurNewEventPage() {
                         </div>
 
                         <div className="md:col-span-2">
-                            <label className="block text-sm font-medium mb-2 text-neutral-400 uppercase tracking-widest text-[10px] font-bold">URL de l&apos;Affiche (Illustration)</label>
-                            <input type="url" name="imageUrl" className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all" placeholder="https://votre-image.jpg" />
+                            <label className="block text-sm font-medium mb-2 text-neutral-400 uppercase tracking-widest text-[10px] font-bold">Photo de l&apos;Affiche (Depuis l&apos;appareil)</label>
+                            <input type="file" name="imageFile" accept="image/*" className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-indigo-500/10 file:text-indigo-400 hover:file:bg-indigo-500/20 cursor-pointer" />
+                            <p className="text-[10px] text-neutral-500 mt-2 italic px-1">L&apos;image sera compressée et stockée avec l&apos;événement.</p>
+                        </div>
+
+                        <div className="md:col-span-2">
+                            <label className="block text-sm font-medium mb-2 text-neutral-500 uppercase tracking-widest text-[10px] font-bold">OU URL de l&apos;image</label>
+                            <input type="url" name="imageUrl" className="w-full bg-neutral-950/50 border border-white/5 rounded-xl px-4 py-3 text-neutral-400 focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-sm" placeholder="https://..." />
                         </div>
 
                         <div className="md:col-span-2 text-indigo-400 bg-indigo-500/5 p-4 rounded-xl border border-indigo-500/10 mb-4">

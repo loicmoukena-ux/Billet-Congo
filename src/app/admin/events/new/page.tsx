@@ -38,6 +38,11 @@ export default function NewEventPage() {
                         </div>
 
                         <div>
+                            <label className="block text-sm font-medium mb-2 text-neutral-300">Date et heure de fin (Optionnel)</label>
+                            <input type="datetime-local" name="endDate" className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none" />
+                        </div>
+
+                        <div>
                             <label className="block text-sm font-medium mb-2 text-neutral-300">Prix du billet STANDARD (XAF)</label>
                             <input type="number" name="price" min="0" required className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="10000" />
                         </div>
@@ -58,8 +63,13 @@ export default function NewEventPage() {
                         </div>
 
                         <div className="md:col-span-2">
-                            <label className="block text-sm font-medium mb-2 text-neutral-300">URL de l&apos;image (Affiche)</label>
-                            <input type="url" name="imageUrl" className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="https://..." />
+                            <label className="block text-sm font-medium mb-2 text-neutral-300">Photo de l&apos;Affiche (Depuis l&apos;appareil)</label>
+                            <input type="file" name="imageFile" accept="image/*" className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-indigo-500/10 file:text-indigo-400 hover:file:bg-indigo-500/20 cursor-pointer" />
+                        </div>
+
+                        <div className="md:col-span-2 text-neutral-500">
+                            <label className="block text-sm font-medium mb-2">OU URL de l&apos;image</label>
+                            <input type="url" name="imageUrl" className="w-full bg-neutral-950/50 border border-white/5 rounded-xl px-4 py-3 text-neutral-400 focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="https://..." />
                         </div>
 
                         <div className="md:col-span-2">

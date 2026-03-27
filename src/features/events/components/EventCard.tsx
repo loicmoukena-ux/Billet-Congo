@@ -9,14 +9,34 @@ interface EventCardProps {
 }
 
 export const EventCard = ({ event }: EventCardProps) => {
-    const dateObj = new Date(event.startDate);
-    const formattedDate = new Intl.DateTimeFormat('fr-FR', {
-        weekday: 'short',
+    const startDateObj = new Date(event.startDate);
+    const endDateObj = event.endDate ? new Date(event.endDate) : null;
+    
+    const dayMonthFormatter = new Intl.DateTimeFormat('fr-FR', {
+        day: 'numeric',
+        month: 'short',
+    });
+
+    const fullFormatter = new Intl.DateTimeFormat('fr-FR', {
         day: 'numeric',
         month: 'short',
         hour: '2-digit',
         minute: '2-digit',
-    }).format(dateObj);
+    });
+
+    const formattedStartDate = dayMonthFormatter.format(startDateObj);
+    
+    let displayDate = "";
+    if (endDateObj) {
+        const formattedEndDate = dayMonthFormatter.format(endDateObj);
+        if (formattedStartDate === formattedEndDate) {
+            displayDate = fullFormatter.format(startDateObj);
+        } else {
+            displayDate = `${formattedStartDate} - ${formattedEndDate}`;
+        }
+    } else {
+        displayDate = fullFormatter.format(startDateObj);
+    }
 
     const isLowStock = event.availableTickets > 0 && event.availableTickets < 10;
     const isSoldOut = event.availableTickets === 0;
@@ -60,7 +80,7 @@ export const EventCard = ({ event }: EventCardProps) => {
                 <div className="p-6 flex flex-col flex-1">
                     <div className="flex flex-col gap-1 mb-4">
                         <span className="text-[10px] font-bold text-primary-400 uppercase tracking-[0.2em]">
-                            {formattedDate}
+                            {displayDate}
                         </span>
                         <h3 className="text-xl font-bold text-white group-hover:text-primary-400 transition-colors line-clamp-1">
                             {event.title}
