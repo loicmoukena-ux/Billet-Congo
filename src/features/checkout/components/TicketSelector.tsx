@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/shared/components/ui/Button';
 
@@ -24,6 +24,7 @@ export const TicketSelector = ({
     const [quantity, setQuantity] = useState(1);
     const [ticketType, setTicketType] = useState<'STANDARD' | 'VIP'>('STANDARD');
     const router = useRouter();
+    const [isPending, startTransition] = useTransition();
 
     const currentPrice = ticketType === 'VIP' ? (vipPrice || 0) : price;
     const currentMax = ticketType === 'VIP' ? availableVipTickets : availableTickets;
@@ -47,7 +48,9 @@ export const TicketSelector = ({
 
     const handleCheckout = () => {
         const typeParam = ticketType === 'VIP' ? '&type=VIP' : '';
-        router.push(`/checkout/${eventId}?qty=${quantity}${typeParam}`);
+        startTransition(() => {
+            router.push(`/checkout/${eventId}?qty=${quantity}${typeParam}`);
+        });
     };
 
     return (
@@ -121,9 +124,9 @@ export const TicketSelector = ({
                     size="lg" 
                     className={`text-lg h-14 ${ticketType === 'VIP' ? 'bg-amber-500 hover:bg-amber-400 text-black border-none' : ''}`} 
                     onClick={handleCheckout}
-                    disabled={currentMax === 0}
+                    disabled={currentMax === 0 || isPending}
                 >
-                    {currentMax === 0 ? 'Complet' : 'Réserver maintenant'}
+                    {isPending ? 'Chargement...' : currentMax === 0 ? 'Complet' : 'Réserver maintenant'}
                 </Button>
             </div>
         </div>

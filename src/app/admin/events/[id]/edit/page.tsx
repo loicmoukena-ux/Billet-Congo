@@ -4,6 +4,7 @@ import { getCurrentUser } from '@/features/auth/server/auth.actions';
 import { Card } from '@/shared/components/ui/Card';
 import { Button } from '@/shared/components/ui/Button';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound, redirect } from 'next/navigation';
 
 export default async function EditEventPage({ params }: { params: Promise<{ id: string }> }) {
@@ -90,8 +91,9 @@ export default async function EditEventPage({ params }: { params: Promise<{ id: 
                             <div className="flex flex-col md:flex-row gap-6 items-start">
                                 {event.imageUrl && (
                                     <div className="w-32 h-44 rounded-xl overflow-hidden border border-white/10 bg-neutral-950 flex-shrink-0">
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img src={event.imageUrl} alt="Actuelle" className="w-full h-full object-cover opacity-70" />
+                                        <div className="relative w-full h-full">
+                                            <Image src={event.imageUrl} alt="Actuelle" fill className="object-cover opacity-70" unoptimized />
+                                        </div>
                                     </div>
                                 )}
                                 <div className="flex-1 w-full space-y-4">

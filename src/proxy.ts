@@ -5,6 +5,7 @@ import * as jose from 'jose';
 // Routes protégées et rôles requis
 const protectedRoutes = {
     '/admin': ['ADMIN'],
+    '/organisateur': ['ADMIN', 'PROMOTER'],
     '/account': ['CLIENT', 'ADMIN', 'PROMOTER', 'SCANNER'],
     '/checkout': ['CLIENT', 'ADMIN', 'PROMOTER', 'SCANNER'],
     '/scanner': ['ADMIN', 'SCANNER'],

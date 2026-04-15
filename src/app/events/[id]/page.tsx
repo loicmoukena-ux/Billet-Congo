@@ -2,6 +2,7 @@ import { getEventById } from '@/features/events/services/event.service';
 import { notFound } from 'next/navigation';
 import { Button } from '@/shared/components/ui/Button';
 import Link from 'next/link';
+import Image from 'next/image';
 import { TicketSelector } from '@/features/checkout/components/TicketSelector';
 import { Metadata } from 'next';
 
@@ -79,11 +80,13 @@ export default async function EventDetailPage({ params }: PageProps) {
             {/* Hero Section / Image de couverture */}
             <div className="relative h-[40vh] md:h-[60vh] w-full bg-neutral-900 border-b border-white/10">
                 {event.imageUrl && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
+                    <Image
                         src={event.imageUrl}
                         alt={event.title}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        priority
+                        sizes="100vw"
                     />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/60 to-transparent" />

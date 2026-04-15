@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Event } from '../types';
 import { Card } from '@/shared/components/ui/Card';
 import { Button } from '@/shared/components/ui/Button';
@@ -46,12 +47,12 @@ export const EventCard = ({ event }: EventCardProps) => {
             <Card className="h-full flex flex-col transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(79,70,229,0.2)] border-white/5 hover:border-primary-500/30">
                 <div className="aspect-[16/10] bg-neutral-800 relative overflow-hidden">
                     {event.imageUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
+                        <Image
                             src={event.imageUrl}
                             alt={event.title}
-                            loading="lazy"
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         />
                     ) : (
                         <div className="absolute inset-0 flex items-center justify-center bg-neutral-900 text-neutral-700">
