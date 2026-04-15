@@ -17,15 +17,17 @@ export default async function OrganisateurEventsPage() {
     const events = await eventService.getAdminEvents(user.id, user.role);
 
     return (
-        <div className="p-8 md:p-12">
+        <div className="p-4 md:p-12">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                 <div>
                     <h1 className="text-3xl font-bold mb-2">Mes Événements</h1>
-                    <p className="text-neutral-400">Gérez vos événements et suivez leur statut de publication.</p>
+                    <p className="text-neutral-400 text-sm md:text-base">Gérez vos événements et suivez leur statut de publication.</p>
                 </div>
-                <Link href="/organisateur/events/new">
-                    <Button>+ Créer un événement</Button>
-                </Link>
+                <div className="w-full md:w-auto">
+                    <Link href="/organisateur/events/new" className="block w-full">
+                        <Button className="w-full md:w-auto">+ Créer un événement</Button>
+                    </Link>
+                </div>
             </div>
 
             <Card className="overflow-hidden border-white/5 bg-neutral-900/50 backdrop-blur-sm shadow-2xl">
@@ -33,10 +35,10 @@ export default async function OrganisateurEventsPage() {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-neutral-900 border-b border-white/10 text-sm text-neutral-400">
-                                <th className="p-4 font-semibold">Événement</th>
-                                <th className="p-4 font-semibold">Date & Heure</th>
-                                <th className="p-4 font-semibold">Tickets</th>
-                                <th className="p-4 font-semibold">Statut</th>
+                                <th className="p-4 font-semibold whitespace-nowrap">Événement</th>
+                                <th className="p-4 font-semibold whitespace-nowrap">Date & Heure</th>
+                                <th className="p-4 font-semibold whitespace-nowrap">Tickets</th>
+                                <th className="p-4 font-semibold whitespace-nowrap">Statut</th>
                                 <th className="p-4 font-semibold text-right">Actions</th>
                             </tr>
                         </thead>

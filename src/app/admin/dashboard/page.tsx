@@ -15,26 +15,26 @@ export default async function AdminDashboardPage() {
     const stats = await eventService.getDashboardStats(user.id, user.role);
 
     return (
-        <div className="p-8 md:p-12">
-            <div className="flex justify-between items-center mb-10">
+        <div className="p-4 md:p-12">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                 <div>
                     <h1 className="text-3xl font-bold mb-2">
                         {role === 'ADMIN' ? 'Administrateur' : 'Organisateur'}
                     </h1>
-                    <p className="text-neutral-400">
+                    <p className="text-neutral-400 text-sm md:text-base">
                         {role === 'ADMIN' 
                             ? 'Vue globale et gestion complète de la plateforme.' 
                             : 'Gérez vos événements et suivez vos statistiques de vente.'}
                     </p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 w-full md:w-auto">
                     {role === 'ADMIN' && (
-                        <Link href="/admin/users">
-                            <Button variant="outline">Gérer les utilisateurs</Button>
+                        <Link href="/admin/users" className="flex-1 md:flex-initial">
+                            <Button variant="outline" className="w-full">Gérer les utilisateurs</Button>
                         </Link>
                     )}
-                    <Link href="/admin/events/new">
-                        <Button>Créer un événement</Button>
+                    <Link href="/admin/events/new" className="flex-1 md:flex-initial">
+                        <Button className="w-full">Créer un événement</Button>
                     </Link>
                 </div>
             </div>

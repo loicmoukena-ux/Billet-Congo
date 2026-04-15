@@ -48,7 +48,7 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
                 {/* Colonne gauche : Résumé */}
-                <div className="md:col-span-1 border-r border-white/5 pr-0 md:pr-8">
+                <div className="md:col-span-1 border-b md:border-b-0 border-white/10 pb-8 md:pb-0 md:border-r border-white/5 pr-0 md:pr-8 mb-8 md:mb-0">
                     <h2 className="text-xl font-bold mb-6">Résumé de la commande</h2>
 
                     <div className="mb-6">

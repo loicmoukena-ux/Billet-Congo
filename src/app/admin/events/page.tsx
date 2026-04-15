@@ -15,15 +15,17 @@ export default async function AdminEventsPage() {
     const events = await eventService.getAdminEvents(user.id, user.role);
 
     return (
-        <div className="p-8 md:p-12">
+        <div className="p-4 md:p-12">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                 <div>
                     <h1 className="text-3xl font-bold mb-2">Gestion des événements</h1>
-                    <p className="text-neutral-400">Gérez le catalogue des événements visibles par les clients.</p>
+                    <p className="text-neutral-400 text-sm md:text-base">Gérez le catalogue des événements visibles par les clients.</p>
                 </div>
-                <Link href="/admin/events/new">
-                    <Button>+ Nouvel événement</Button>
-                </Link>
+                <div className="w-full md:w-auto">
+                    <Link href="/admin/events/new" className="block w-full">
+                        <Button className="w-full md:w-auto">+ Nouvel événement</Button>
+                    </Link>
+                </div>
             </div>
 
             <Card className="overflow-hidden">
@@ -31,11 +33,11 @@ export default async function AdminEventsPage() {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-neutral-900 border-b border-white/10 text-sm text-neutral-400">
-                                <th className="p-4 font-semibold">Titre & Lieu</th>
-                                <th className="p-4 font-semibold">Date</th>
-                                <th className="p-4 font-semibold">Prix (XAF)</th>
-                                <th className="p-4 font-semibold">Tickets (Restants / Total)</th>
-                                <th className="p-4 font-semibold">Statut</th>
+                                <th className="p-4 font-semibold whitespace-nowrap">Titre & Lieu</th>
+                                <th className="p-4 font-semibold whitespace-nowrap">Date</th>
+                                <th className="p-4 font-semibold whitespace-nowrap">Prix (XAF)</th>
+                                <th className="p-4 font-semibold whitespace-nowrap">Tickets (Restants / Total)</th>
+                                <th className="p-4 font-semibold whitespace-nowrap">Statut</th>
                                 <th className="p-4 font-semibold text-right">Actions</th>
                             </tr>
                         </thead>

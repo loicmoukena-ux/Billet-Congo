@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function OrganisateurNewEventPage() {
     return (
-        <div className="p-8 md:p-12 max-w-4xl mx-auto">
+        <div className="p-4 md:p-12 max-w-4xl mx-auto">
             <div className="mb-6 text-indigo-400">
                 <Link href="/organisateur/events" className="text-sm font-medium hover:text-white transition-colors flex items-center gap-2">
                     ← Retourner à mes événements
