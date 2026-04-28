@@ -99,8 +99,8 @@
 }
 
 :root {
-  background-color: var(--color-neutral-950);
-  color: #fff;
+  background-color: #ffffff;
+  color: var(--color-neutral-900);
   scroll-behavior: smooth;
 }
 
@@ -117,14 +117,14 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-neutral-950);
+  background: #f1f5f9; /* slate-100 */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-neutral-700);
+  background: #cbd5e1; /* slate-300 */
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-neutral-600);
+  background: #94a3b8; /* slate-400 */
 }

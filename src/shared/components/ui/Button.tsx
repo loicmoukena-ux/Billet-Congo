@@ -9,14 +9,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className = '', variant = 'primary', size = 'md', fullWidth = false, asChild = false, children, ...props }, ref) => {
-        const baseStyles = 'inline-flex items-center justify-center rounded-full font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]';
+        const baseStyles = 'inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-white disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]';
 
         const variants = {
-            primary: 'bg-white text-black hover:bg-neutral-200 shadow-[0_0_20px_rgba(255,255,255,0.1)]',
-            secondary: 'bg-primary-600 text-white hover:bg-primary-500 shadow-[0_0_20px_rgba(79,70,229,0.3)]',
-            outline: 'border border-white/20 text-white hover:bg-white/10 hover:border-white/40',
-            ghost: 'text-neutral-300 hover:text-white hover:bg-white/5',
-            glass: 'glass text-white hover:bg-white/10 shadow-lg',
+            primary: 'bg-primary-600 text-white hover:bg-primary-700 shadow-sm',
+            secondary: 'bg-neutral-900 text-white hover:bg-neutral-800 shadow-sm',
+            outline: 'border-2 border-neutral-200 text-neutral-800 hover:border-neutral-300 hover:bg-neutral-50',
+            ghost: 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100',
+            glass: 'glass text-neutral-900 hover:bg-white/90 shadow-sm',
         };
 
         const sizes = {

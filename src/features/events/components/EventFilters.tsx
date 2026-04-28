@@ -55,10 +55,10 @@ export function EventFilters({ total }: { total: number }) {
                     value={q}
                     onChange={(e) => updateParams({ q: e.target.value || null })}
                     placeholder="Rechercher un événement, une ville..."
-                    className="w-full bg-neutral-900 border border-white/10 focus:border-indigo-500/60 rounded-2xl pl-12 pr-4 py-4 text-white placeholder:text-neutral-600 outline-none transition-colors text-base"
+                    className="w-full bg-white border border-neutral-300 focus:border-primary-500 rounded-2xl pl-12 pr-4 py-4 text-neutral-900 placeholder:text-neutral-500 outline-none transition-colors text-base shadow-sm"
                 />
                 {isPending && (
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin" />
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 border-2 border-primary-400 border-t-transparent rounded-full animate-spin" />
                 )}
             </div>
 
@@ -68,7 +68,7 @@ export function EventFilters({ total }: { total: number }) {
                 <select
                     value={sort}
                     onChange={(e) => updateParams({ sort: e.target.value })}
-                    className="bg-neutral-900 border border-white/10 hover:border-white/20 text-sm text-white rounded-xl px-4 py-2.5 outline-none cursor-pointer transition-colors"
+                    className="bg-white border border-neutral-300 hover:border-neutral-400 text-sm text-neutral-700 rounded-xl px-4 py-2.5 outline-none cursor-pointer transition-colors shadow-sm"
                 >
                     {SORT_OPTIONS.map((o) => (
                         <option key={o.value} value={o.value}>{o.label}</option>
@@ -78,10 +78,10 @@ export function EventFilters({ total }: { total: number }) {
                 {/* Filtre : Disponibles uniquement */}
                 <button
                     onClick={() => updateParams({ available: available ? null : '1' })}
-                    className={`flex items-center gap-2 text-sm px-4 py-2.5 rounded-xl border transition-all duration-200 ${
+                    className={`flex items-center gap-2 text-sm px-4 py-2.5 rounded-xl border transition-all duration-200 shadow-sm ${
                         available
-                            ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
-                            : 'bg-neutral-900 border-white/10 text-neutral-400 hover:border-white/20 hover:text-white'
+                            ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
+                            : 'bg-white border-neutral-300 text-neutral-600 hover:border-neutral-400 hover:text-neutral-900'
                     }`}
                 >
                     <span className={`w-2 h-2 rounded-full ${available ? 'bg-emerald-400' : 'bg-neutral-600'}`} />
@@ -91,10 +91,10 @@ export function EventFilters({ total }: { total: number }) {
                 {/* Filtre : VIP */}
                 <button
                     onClick={() => updateParams({ vip: vip ? null : '1' })}
-                    className={`flex items-center gap-2 text-sm px-4 py-2.5 rounded-xl border transition-all duration-200 ${
+                    className={`flex items-center gap-2 text-sm px-4 py-2.5 rounded-xl border transition-all duration-200 shadow-sm ${
                         vip
-                            ? 'bg-amber-500/15 border-amber-500/40 text-amber-400'
-                            : 'bg-neutral-900 border-white/10 text-neutral-400 hover:border-white/20 hover:text-white'
+                            ? 'bg-amber-50 border-amber-200 text-amber-700'
+                            : 'bg-white border-neutral-300 text-neutral-600 hover:border-neutral-400 hover:text-neutral-900'
                     }`}
                 >
                     ✦ VIP
@@ -104,7 +104,7 @@ export function EventFilters({ total }: { total: number }) {
                 {hasFilters && (
                     <button
                         onClick={() => router.replace(pathname, { scroll: false })}
-                        className="ml-auto text-xs text-neutral-500 hover:text-white underline underline-offset-2 transition-colors"
+                        className="ml-auto text-xs text-neutral-500 hover:text-neutral-900 underline underline-offset-2 transition-colors"
                     >
                         Réinitialiser
                     </button>

@@ -58,44 +58,44 @@ function LoginForm() {
 
     return (
         <div className="min-h-screen flex items-center justify-center -mt-16 px-4">
-            <Card className="w-full max-w-md p-8 shadow-2xl">
+            <Card className="w-full max-w-md p-8 shadow-sm border border-neutral-200 bg-white">
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold mb-2">Bon retour</h1>
-                    <p className="text-neutral-400">Connectez-vous pour accéder à vos billets</p>
+                    <h1 className="text-3xl font-bold mb-2 text-neutral-900">Bon retour</h1>
+                    <p className="text-neutral-600">Connectez-vous pour accéder à vos billets</p>
                 </div>
 
                 {error && (
-                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl mb-6 text-sm">
+                    <div className="bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl mb-6 text-sm">
                         {error}
                     </div>
                 )}
 
                 {success && (
-                    <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-4 rounded-xl mb-6 text-sm">
+                    <div className="bg-emerald-50 border border-emerald-200 text-emerald-600 p-4 rounded-xl mb-6 text-sm">
                         {success}
                     </div>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
-                        <label className="block text-sm font-medium mb-2 text-neutral-300">Numéro de téléphone</label>
+                        <label className="block text-sm font-medium mb-2 text-neutral-700">Numéro de téléphone</label>
                         <input
                             type="tel"
                             name="phone"
                             required
                             placeholder="Ex: 06 123 45 67"
-                            className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                            className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all shadow-sm"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-2 text-neutral-300">Mot de passe</label>
+                        <label className="block text-sm font-medium mb-2 text-neutral-700">Mot de passe</label>
                         <input
                             type="password"
                             name="password"
                             required
                             placeholder="••••••••"
-                            className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                            className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all shadow-sm"
                         />
                     </div>
 
@@ -103,19 +103,19 @@ function LoginForm() {
                         {isLoading ? 'Connexion...' : 'Se connecter'}
                     </Button>
 
-                    <p className="text-center text-sm text-neutral-400 pt-4">
+                    <p className="text-center text-sm text-neutral-600 pt-4">
                         Pas encore de compte ?{' '}
-                        <Link href="/auth/register" className="text-indigo-400 hover:text-indigo-300 font-medium">
+                        <Link href="/auth/register" className="text-primary-600 hover:text-primary-700 font-medium">
                             S&apos;inscrire
                         </Link>
                     </p>
 
                     <div className="relative mt-6">
                         <div className="absolute inset-0 flex items-center">
-                            <span className="w-full border-t border-white/10" />
+                            <span className="w-full border-t border-neutral-200" />
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-neutral-950 px-2 text-neutral-500">Ou</span>
+                            <span className="bg-white px-2 text-neutral-500">Ou</span>
                         </div>
                     </div>
 
@@ -124,7 +124,7 @@ function LoginForm() {
                         formAction={redirectToFirstEventCheckout}
                         variant="outline" 
                         fullWidth 
-                        className="border-neutral-700 text-neutral-300 hover:bg-neutral-800"
+                        className="border-neutral-200 text-neutral-700 hover:bg-neutral-50"
                     >
                         Continuer sans compte
                     </Button>
@@ -138,8 +138,8 @@ export default function LoginPage() {
     return (
         <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center -mt-16 px-4">
-                <Card className="w-full max-w-md p-8 shadow-2xl text-center">
-                    <p className="text-neutral-400 animate-pulse">Chargement...</p>
+                <Card className="w-full max-w-md p-8 shadow-sm border border-neutral-200 bg-white text-center">
+                    <p className="text-neutral-600 animate-pulse">Chargement...</p>
                 </Card>
             </div>
         }>

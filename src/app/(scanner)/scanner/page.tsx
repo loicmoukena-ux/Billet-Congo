@@ -34,8 +34,7 @@ function TicketInfoRow({ label, value, accent }: { label: string; value?: string
     if (!value) return null;
     return (
         <div className="flex flex-col gap-0.5">
-            <span className="text-[10px] uppercase tracking-widest opacity-60">{label}</span>
-            <span className={`font-semibold text-sm ${accent ? 'text-amber-400' : 'text-white'}`}>{value}</span>
+            <span className={`font-semibold text-sm ${accent ? 'text-amber-600' : 'text-neutral-900'}`}>{value}</span>
         </div>
     );
 }
@@ -125,15 +124,15 @@ export default function ScannerPage() {
             </div>
 
             {/* Onglets */}
-            <div className="flex bg-neutral-900 rounded-2xl p-1 border border-white/10">
+            <div className="flex bg-neutral-100 rounded-2xl p-1 border border-neutral-200">
                 {(['camera', 'manual'] as Tab[]).map((tab) => (
                     <button
                         key={tab}
                         onClick={() => { setActiveTab(tab); setLastScan(null); }}
                         className={`flex-1 py-3 text-sm font-semibold rounded-xl transition-all duration-200 ${
                             activeTab === tab
-                                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20'
-                                : 'text-neutral-500 hover:text-white'
+                                ? 'bg-primary-600 text-white shadow-sm'
+                                : 'text-neutral-500 hover:text-neutral-900'
                         }`}
                     >
                         {tab === 'camera' ? '📷 Appareil Photo' : '⌨️ Saisie Manuelle'}
@@ -142,7 +141,7 @@ export default function ScannerPage() {
             </div>
 
             {/* Zone de scan */}
-            <div className="bg-neutral-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+            <div className="bg-white border border-neutral-200 rounded-3xl overflow-hidden shadow-sm">
                 {activeTab === 'camera' ? (
                     <div className="flex flex-col items-center p-6 gap-4">
                         {/* Scanner QR */}
@@ -153,10 +152,10 @@ export default function ScannerPage() {
                             />
                             {/* Overlay de chargement initial */}
                             {!scannerReady && (
-                                <div className="absolute inset-0 flex items-center justify-center bg-neutral-950 rounded-2xl">
+                                <div className="absolute inset-0 flex items-center justify-center bg-neutral-50 rounded-2xl">
                                     <div className="text-center">
-                                        <div className="w-10 h-10 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-                                        <p className="text-neutral-400 text-sm">Initialisation caméra...</p>
+                                        <div className="w-10 h-10 border-2 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+                                        <p className="text-neutral-500 text-sm">Initialisation caméra...</p>
                                     </div>
                                 </div>
                             )}
@@ -170,15 +169,15 @@ export default function ScannerPage() {
                         )}
 
                         {isLoading && (
-                            <div className="flex items-center gap-3 text-indigo-400 font-semibold text-sm animate-pulse">
-                                <div className="w-4 h-4 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin" />
+                            <div className="flex items-center gap-3 text-primary-600 font-semibold text-sm animate-pulse">
+                                <div className="w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin" />
                                 Vérification en cours...
                             </div>
                         )}
                     </div>
                 ) : (
                     <form onSubmit={handleManualScan} className="p-6 flex flex-col gap-4">
-                        <label className="block text-sm font-medium text-neutral-400">Référence du billet</label>
+                        <label className="block text-sm font-medium text-neutral-600">Référence du billet</label>
                         <input
                             ref={inputRef}
                             type="text"
@@ -187,12 +186,12 @@ export default function ScannerPage() {
                             placeholder="TKT-XXXXXXXX"
                             autoFocus
                             autoComplete="off"
-                            className="w-full bg-neutral-950 border-2 border-white/10 focus:border-indigo-500 rounded-2xl px-5 py-4 text-2xl text-center font-mono tracking-widest placeholder:text-neutral-700 outline-none transition-colors"
+                            className="w-full bg-neutral-50 border border-neutral-200 focus:border-primary-500 rounded-2xl px-5 py-4 text-2xl text-center font-mono tracking-widest placeholder:text-neutral-400 outline-none transition-colors"
                         />
                         <button
                             type="submit"
                             disabled={isLoading || !reference.trim()}
-                            className="w-full h-14 rounded-2xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-lg transition-all duration-200 flex items-center justify-center gap-3"
+                            className="w-full h-14 rounded-2xl bg-primary-600 hover:bg-primary-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-lg transition-all duration-200 flex items-center justify-center gap-3 shadow-sm"
                         >
                             {isLoading ? (
                                 <>
@@ -209,20 +208,20 @@ export default function ScannerPage() {
 
             {/* Résultat du scan */}
             {lastScan && (
-                <div className={`rounded-3xl p-6 border-2 animate-in fade-in slide-in-from-bottom-4 duration-300 ${
+                <div className={`rounded-3xl p-6 border animate-in fade-in slide-in-from-bottom-4 duration-300 ${
                     lastScan.success
-                        ? 'bg-emerald-950/60 border-emerald-500/50'
-                        : 'bg-red-950/60 border-red-500/50'
+                        ? 'bg-emerald-50 border-emerald-200'
+                        : 'bg-red-50 border-red-200'
                 }`}>
                     <div className="flex flex-col items-center text-center gap-4">
                         <StatusBadge success={lastScan.success} />
-                        <p className={`text-base ${lastScan.success ? 'text-emerald-300' : 'text-red-300'}`}>
+                        <p className={`text-base font-semibold ${lastScan.success ? 'text-emerald-700' : 'text-red-700'}`}>
                             {lastScan.message}
                         </p>
 
                         {/* Infos billet */}
                         {lastScan.ticket && (
-                            <div className="w-full mt-2 pt-4 border-t border-white/10 grid grid-cols-2 gap-4 text-left">
+                            <div className="w-full mt-2 pt-4 border-t border-neutral-200 grid grid-cols-2 gap-4 text-left">
                                 <TicketInfoRow label="Événement" value={(lastScan.ticket as any).eventTitle} />
                                 <TicketInfoRow label="Porteur" value={(lastScan.ticket as any).holderName} />
                                 <TicketInfoRow
@@ -255,8 +254,8 @@ export default function ScannerPage() {
                                 key={i}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-sm ${
                                     h.success
-                                        ? 'bg-emerald-500/5 border-emerald-500/15 text-emerald-300'
-                                        : 'bg-red-500/5 border-red-500/15 text-red-300'
+                                        ? 'bg-emerald-50 border-emerald-100 text-emerald-800'
+                                        : 'bg-red-50 border-red-100 text-red-800'
                                 }`}
                             >
                                 <span className="text-lg shrink-0">{h.success ? '✅' : '❌'}</span>

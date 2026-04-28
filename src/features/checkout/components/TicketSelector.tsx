@@ -56,13 +56,13 @@ export const TicketSelector = ({
     return (
         <div className="space-y-4">
             {vipPrice && (
-                <div className="flex p-1 bg-neutral-900 rounded-2xl border border-white/5">
+                <div className="flex p-1 bg-neutral-100 rounded-2xl border border-neutral-200">
                     <button
                         onClick={() => handleTypeChange('STANDARD')}
                         className={`flex-1 py-2 px-4 rounded-xl text-sm font-bold transition-all ${
                             ticketType === 'STANDARD' 
-                            ? 'bg-white text-black shadow-lg' 
-                            : 'text-neutral-400 hover:text-white'
+                            ? 'bg-white text-neutral-900 shadow-sm' 
+                            : 'text-neutral-500 hover:text-neutral-900'
                         }`}
                     >
                         Standard
@@ -71,8 +71,8 @@ export const TicketSelector = ({
                         onClick={() => handleTypeChange('VIP')}
                         className={`flex-1 py-2 px-4 rounded-xl text-sm font-bold transition-all ${
                             ticketType === 'VIP' 
-                            ? 'bg-amber-500 text-black shadow-lg' 
-                            : 'text-neutral-400 hover:text-white'
+                            ? 'bg-amber-100 text-amber-900 shadow-sm' 
+                            : 'text-neutral-500 hover:text-neutral-900'
                         }`}
                     >
                         👑 VIP
@@ -80,12 +80,12 @@ export const TicketSelector = ({
                 </div>
             )}
 
-            <div className="bg-neutral-950 rounded-2xl p-4 border border-white/5">
+            <div className="bg-neutral-50 rounded-2xl p-4 border border-neutral-200">
                 <div className="flex justify-between items-center mb-4">
-                    <span className="text-neutral-400">
+                    <span className="text-neutral-600">
                         Billet {ticketType === 'VIP' ? 'VIP' : 'Standard'}
                     </span>
-                    <span className={`text-2xl font-bold ${ticketType === 'VIP' ? 'text-amber-400' : 'text-indigo-400'}`}>
+                    <span className={`text-2xl font-bold ${ticketType === 'VIP' ? 'text-amber-600' : 'text-primary-600'}`}>
                         {new Intl.NumberFormat('fr-FR').format(currentPrice)} {currency}
                     </span>
                 </div>
@@ -94,27 +94,27 @@ export const TicketSelector = ({
                     {currentMax} places restantes
                 </div>
 
-                <div className="flex items-center justify-between mb-4 bg-neutral-900 rounded-xl p-2 border border-white/10">
+                <div className="flex items-center justify-between mb-4 bg-white rounded-xl p-2 border border-neutral-200 shadow-sm">
                     <button
                         onClick={handleDecrement}
                         disabled={quantity <= 1}
-                        className="w-10 h-10 rounded-lg flex items-center justify-center bg-neutral-800 hover:bg-neutral-700 disabled:opacity-50 text-xl font-bold transition-colors"
+                        className="w-10 h-10 rounded-lg flex items-center justify-center bg-neutral-100 hover:bg-neutral-200 disabled:opacity-50 text-xl font-bold transition-colors text-neutral-700"
                     >
                         -
                     </button>
-                    <span className="text-lg font-bold w-12 text-center">{quantity}</span>
+                    <span className="text-lg font-bold w-12 text-center text-neutral-900">{quantity}</span>
                     <button
                         onClick={handleIncrement}
                         disabled={quantity >= Math.min(10, currentMax)}
-                        className="w-10 h-10 rounded-lg flex items-center justify-center bg-neutral-800 hover:bg-neutral-700 disabled:opacity-50 text-xl font-bold transition-colors"
+                        className="w-10 h-10 rounded-lg flex items-center justify-center bg-neutral-100 hover:bg-neutral-200 disabled:opacity-50 text-xl font-bold transition-colors text-neutral-700"
                     >
                         +
                     </button>
                 </div>
 
-                <div className="flex justify-between items-center text-sm mb-6 pt-4 border-t border-white/10">
-                    <span className="text-neutral-400">Total :</span>
-                    <span className="font-bold text-white text-lg">
+                <div className="flex justify-between items-center text-sm mb-6 pt-4 border-t border-neutral-200">
+                    <span className="text-neutral-600">Total :</span>
+                    <span className="font-bold text-neutral-900 text-lg">
                         {new Intl.NumberFormat('fr-FR').format(currentPrice * quantity)} {currency}
                     </span>
                 </div>
@@ -122,7 +122,7 @@ export const TicketSelector = ({
                 <Button 
                     fullWidth 
                     size="lg" 
-                    className={`text-lg h-14 ${ticketType === 'VIP' ? 'bg-amber-500 hover:bg-amber-400 text-black border-none' : ''}`} 
+                    className={`text-lg h-14 ${ticketType === 'VIP' ? 'bg-amber-500 hover:bg-amber-600 text-white border-none' : ''}`} 
                     onClick={handleCheckout}
                     disabled={currentMax === 0 || isPending}
                 >

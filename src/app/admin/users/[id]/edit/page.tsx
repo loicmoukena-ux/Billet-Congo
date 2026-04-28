@@ -24,13 +24,13 @@ export default async function AdminEditUserPage({ params }: { params: Promise<{ 
     return (
         <div className="p-8 md:p-12 max-w-2xl mx-auto">
             <div className="mb-8">
-                <Link href="/admin/users" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+                <Link href="/admin/users" className="text-sm font-medium text-neutral-500 hover:text-neutral-900 transition-colors">
                     ← Retour à la liste
                 </Link>
-                <h1 className="text-3xl font-bold mt-4">Modifier l&apos;utilisateur</h1>
+                <h1 className="text-3xl font-bold mt-4 text-neutral-900">Modifier l&apos;utilisateur</h1>
             </div>
 
-            <Card className="p-8 shadow-2xl">
+            <Card className="p-8 shadow-sm border border-neutral-200 bg-white">
                 <form 
                     action={async (formData) => {
                         'use server';
@@ -45,22 +45,22 @@ export default async function AdminEditUserPage({ params }: { params: Promise<{ 
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-300">Nom complet</label>
+                            <label className="block text-sm font-medium mb-2 text-neutral-700">Nom complet</label>
                             <input
                                 type="text"
                                 name="fullName"
                                 required
                                 defaultValue={userToEdit.fullName}
-                                className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-300">Rôle</label>
+                            <label className="block text-sm font-medium mb-2 text-neutral-700">Rôle</label>
                             <select
                                 name="role"
                                 required
                                 defaultValue={userToEdit.role}
-                                className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
                             >
                                 <option value="PROMOTER">Organisateur (PROMOTER)</option>
                                 <option value="SCANNER">Scanner (Entrée)</option>
@@ -72,34 +72,34 @@ export default async function AdminEditUserPage({ params }: { params: Promise<{ 
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-300">Email</label>
+                            <label className="block text-sm font-medium mb-2 text-neutral-700">Email</label>
                             <input
                                 type="email"
                                 name="email"
                                 required
                                 defaultValue={userToEdit.email}
-                                className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-300">Téléphone</label>
+                            <label className="block text-sm font-medium mb-2 text-neutral-700">Téléphone</label>
                             <input
                                 type="tel"
                                 name="phone"
                                 required
                                 defaultValue={userToEdit.phoneNumber}
-                                className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
                             />
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-2 text-neutral-300">Mot de passe (laisser vide pour ne pas changer)</label>
+                        <label className="block text-sm font-medium mb-2 text-neutral-700">Mot de passe (laisser vide pour ne pas changer)</label>
                         <input
                             type="password"
                             name="password"
                             placeholder="••••••••"
-                            className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                            className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
                         />
                     </div>
 

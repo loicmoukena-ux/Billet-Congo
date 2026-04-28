@@ -76,9 +76,9 @@ export default async function EventDetailPage({ params }: PageProps) {
     const formattedEndDate = endDateObj ? dateFormatter.format(endDateObj) : null;
 
     return (
-        <div className="min-h-screen bg-neutral-950">
+        <div className="min-h-screen bg-neutral-50">
             {/* Hero Section / Image de couverture */}
-            <div className="relative h-[40vh] md:h-[60vh] w-full bg-neutral-900 border-b border-white/10">
+            <div className="relative h-[40vh] md:h-[60vh] w-full bg-white border-b border-neutral-200">
                 {event.imageUrl && (
                     <Image
                         src={event.imageUrl}
@@ -89,10 +89,10 @@ export default async function EventDetailPage({ params }: PageProps) {
                         sizes="100vw"
                     />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-50 via-neutral-50/60 to-transparent" />
 
                 <div className="absolute top-6 left-4 z-10">
-                    <Link href="/" className="inline-flex items-center gap-2 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full text-sm font-medium hover:bg-black/70 transition-colors border border-white/10">
+                    <Link href="/" className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-md rounded-full text-sm font-medium text-neutral-900 hover:bg-white transition-colors border border-neutral-200 shadow-sm">
                         <span>←</span> Retour aux événements
                     </Link>
                 </div>
@@ -103,32 +103,32 @@ export default async function EventDetailPage({ params }: PageProps) {
 
                     {/* Main Content (Infos gauche) */}
                     <div className="lg:col-span-2 space-y-8">
-                        <div className="bg-neutral-900/80 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl">
+                        <div className="bg-white border border-neutral-200 rounded-3xl p-6 md:p-10 shadow-sm">
                             <div className="flex flex-wrap gap-2 mb-4">
-                                <span className="bg-indigo-500/20 text-indigo-400 border border-indigo-500/20 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">
+                                <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">
                                     {event.status === 'PUBLISHED' ? 'En vente' : event.status}
                                 </span>
-                                <span className="bg-white/10 text-neutral-300 border border-white/10 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">
+                                <span className="bg-neutral-100 text-neutral-600 border border-neutral-200 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">
                                     Concert
                                 </span>
                             </div>
 
-                            <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+                            <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight text-neutral-900">
                                 {event.title}
                             </h1>
 
-                            <div className="flex flex-col sm:flex-row gap-6 mb-8 pb-8 border-b border-white/10">
+                            <div className="flex flex-col sm:flex-row gap-6 mb-8 pb-8 border-b border-neutral-100">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                                    <div className="w-12 h-12 rounded-full bg-primary-50 flex items-center justify-center border border-primary-100">
                                         <span className="text-xl">📅</span>
                                     </div>
                                     <div>
-                                        <div className="text-sm text-neutral-400 font-medium mb-1">Date & Heure</div>
-                                        <div className="font-semibold text-white capitalize text-balance">
+                                        <div className="text-sm text-neutral-500 font-medium mb-1">Date & Heure</div>
+                                        <div className="font-semibold text-neutral-900 capitalize text-balance">
                                             {formattedEndDate ? (
                                                 <div className="flex flex-col">
                                                     <span>Du {formattedStartDate}</span>
-                                                    <span className="text-indigo-400">au {formattedEndDate}</span>
+                                                    <span className="text-primary-600">au {formattedEndDate}</span>
                                                 </div>
                                             ) : (
                                                 formattedStartDate
@@ -138,20 +138,20 @@ export default async function EventDetailPage({ params }: PageProps) {
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center border border-pink-500/30">
+                                    <div className="w-12 h-12 rounded-full bg-primary-50 flex items-center justify-center border border-primary-100">
                                         <span className="text-xl">📍</span>
                                     </div>
                                     <div>
-                                        <div className="text-sm text-neutral-400 font-medium mb-1">Lieu</div>
-                                        <div className="font-semibold text-white">{event.location}</div>
+                                        <div className="text-sm text-neutral-500 font-medium mb-1">Lieu</div>
+                                        <div className="font-semibold text-neutral-900">{event.location}</div>
                                     </div>
                                 </div>
                             </div>
 
                             <div>
-                                <h2 className="text-2xl font-bold mb-4">À propos de l&apos;événement</h2>
-                                <div className="prose prose-invert max-w-none">
-                                    <p className="text-neutral-300 leading-relaxed text-lg text-balance">
+                                <h2 className="text-2xl font-bold mb-4 text-neutral-900">À propos de l&apos;événement</h2>
+                                <div className="prose max-w-none">
+                                    <p className="text-neutral-600 leading-relaxed text-lg text-balance">
                                         {event.description}
                                     </p>
                                 </div>
@@ -161,8 +161,8 @@ export default async function EventDetailPage({ params }: PageProps) {
 
                     {/* Sidebar (Ticket card) */}
                     <div className="lg:col-span-1">
-                        <div className="bg-neutral-900/80 backdrop-blur-md border border-white/10 rounded-3xl p-6 shadow-2xl sticky top-24">
-                            <h3 className="text-xl font-bold mb-6">Réserver vos billets</h3>
+                        <div className="bg-white border border-neutral-200 rounded-3xl p-6 shadow-sm sticky top-24">
+                            <h3 className="text-xl font-bold mb-6 text-neutral-900">Réserver vos billets</h3>
 
                             <TicketSelector
                                 eventId={event.id}

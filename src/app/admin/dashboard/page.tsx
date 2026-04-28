@@ -18,10 +18,10 @@ export default async function AdminDashboardPage() {
         <div className="p-4 md:p-12">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold mb-2">
+                    <h1 className="text-3xl font-bold mb-2 text-neutral-900">
                         {role === 'ADMIN' ? 'Administrateur' : 'Organisateur'}
                     </h1>
-                    <p className="text-neutral-400 text-sm md:text-base">
+                    <p className="text-neutral-600 text-sm md:text-base">
                         {role === 'ADMIN' 
                             ? 'Vue globale et gestion complète de la plateforme.' 
                             : 'Gérez vos événements et suivez vos statistiques de vente.'}
@@ -40,30 +40,30 @@ export default async function AdminDashboardPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                <Card className="p-6 flex flex-col justify-between">
-                    <h3 className="text-sm font-bold text-neutral-400 mb-2">Chiffre d&apos;Affaires</h3>
-                    <div className="text-3xl font-bold text-white mb-1">{new Intl.NumberFormat('fr-FR').format(stats.totalRevenue)} XAF</div>
-                    <p className="text-xs text-emerald-400">Total des ventes validées</p>
+                <Card className="p-6 flex flex-col justify-between border-t-4 border-t-emerald-500">
+                    <h3 className="text-sm font-bold text-neutral-600 mb-2">Chiffre d&apos;Affaires</h3>
+                    <div className="text-3xl font-bold text-neutral-900 mb-1">{new Intl.NumberFormat('fr-FR').format(stats.totalRevenue)} XAF</div>
+                    <p className="text-xs text-emerald-600">Total des ventes validées</p>
                 </Card>
 
-                <Card className="p-6 flex flex-col justify-between">
-                    <h3 className="text-sm font-bold text-neutral-400 mb-2">Billets Vendus</h3>
-                    <div className="text-3xl font-bold text-white mb-1">{stats.ticketsSold}</div>
-                    <p className="text-xs text-indigo-400">Sur l&apos;ensemble des événements</p>
+                <Card className="p-6 flex flex-col justify-between border-t-4 border-t-primary-500">
+                    <h3 className="text-sm font-bold text-neutral-600 mb-2">Billets Vendus</h3>
+                    <div className="text-3xl font-bold text-neutral-900 mb-1">{stats.ticketsSold}</div>
+                    <p className="text-xs text-primary-600">Sur l&apos;ensemble des événements</p>
                 </Card>
 
-                <Card className="p-6 flex flex-col justify-between">
-                    <h3 className="text-sm font-bold text-neutral-400 mb-2">Événements Actifs</h3>
-                    <div className="text-3xl font-bold text-white mb-1">{stats.activeEventsCount}</div>
-                    <p className="text-xs text-purple-400">Publiés dans le catalogue</p>
+                <Card className="p-6 flex flex-col justify-between border-t-4 border-t-amber-500">
+                    <h3 className="text-sm font-bold text-neutral-600 mb-2">Événements Actifs</h3>
+                    <div className="text-3xl font-bold text-neutral-900 mb-1">{stats.activeEventsCount}</div>
+                    <p className="text-xs text-amber-600">Publiés dans le catalogue</p>
                 </Card>
             </div>
 
-            <div className="bg-neutral-900 rounded-3xl border border-white/10 p-8 shadow-2xl">
-                <h2 className="text-xl font-bold mb-6">Dernières ventes</h2>
-                <div className="text-center py-20 bg-neutral-950 rounded-2xl border border-dashed border-white/20">
-                    <p className="text-neutral-500 mb-2">Aucune vente enregistrée aujourd&apos;hui.</p>
-                    <p className="text-xs text-neutral-600">En attente de nouvelles transactions Mobile Money...</p>
+            <div className="bg-white rounded-2xl border border-neutral-200 p-8 shadow-sm">
+                <h2 className="text-xl font-bold mb-6 text-neutral-900">Dernières ventes</h2>
+                <div className="text-center py-20 bg-neutral-50 rounded-2xl border border-dashed border-neutral-300">
+                    <p className="text-neutral-600 mb-2">Aucune vente enregistrée aujourd&apos;hui.</p>
+                    <p className="text-xs text-neutral-500">En attente de nouvelles transactions Mobile Money...</p>
                 </div>
             </div>
         </div>
