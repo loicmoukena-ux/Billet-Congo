@@ -7,8 +7,8 @@ export const Header = async () => {
   const user = await getCurrentUser();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-neutral-200 bg-white/90 backdrop-blur-xl">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+    <header className="sticky top-4 z-50 w-full px-4 sm:px-6 lg:px-8 mb-8 transition-all duration-300">
+      <div className="mx-auto max-w-6xl h-16 glass rounded-full flex items-center justify-between px-6 shadow-sm">
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/" className="text-xl font-bold text-primary-600 tracking-tight">
