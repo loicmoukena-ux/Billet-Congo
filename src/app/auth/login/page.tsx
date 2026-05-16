@@ -57,7 +57,7 @@ function LoginForm() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center -mt-16 px-4">
+        <div className="flex items-center justify-center min-h-[80vh] py-12 px-4">
             <Card className="w-full max-w-md p-8 shadow-sm border border-neutral-200 bg-white">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold mb-2 text-neutral-900">Bon retour</h1>
@@ -137,7 +137,7 @@ function LoginForm() {
 export default function LoginPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen flex items-center justify-center -mt-16 px-4">
+            <div className="flex items-center justify-center min-h-[80vh] py-12 px-4">
                 <Card className="w-full max-w-md p-8 shadow-sm border border-neutral-200 bg-white text-center">
                     <p className="text-neutral-600 animate-pulse">Chargement...</p>
                 </Card>

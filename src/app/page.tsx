@@ -15,9 +15,9 @@ export default async function Home() {
     <div className="container mx-auto px-4">
       {/* Hero Section */}
       <section className="relative py-20 md:py-32 overflow-hidden flex justify-center">
-        <div className="glass rounded-[3rem] p-10 md:p-24 text-center max-w-5xl mx-auto relative overflow-hidden group shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border-white/80">
+        <div className="bg-white/30 backdrop-blur-2xl border border-white/30 rounded-[3rem] p-10 md:p-24 text-center max-w-5xl mx-auto relative overflow-hidden group shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]">
           {/* Subtle inner glow */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/60 to-transparent opacity-50 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-40 pointer-events-none" />
 
           <div className="relative z-10 space-y-8">
             <h1 className="text-5xl md:text-8xl font-black tracking-tight text-neutral-900 animate-slide-up leading-tight">
