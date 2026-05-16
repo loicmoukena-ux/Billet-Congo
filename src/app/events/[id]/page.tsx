@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (!event) {
         return {
-            title: 'Événement non trouvé | Billet-Congo',
+            title: 'Événement non trouvé | AstroPass',
         };
     }
 
@@ -25,13 +25,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         : event.description;
 
     return {
-        title: `${event.title} | Billet-Congo`,
+        title: `${event.title} | AstroPass`,
         description: description,
         openGraph: {
             title: event.title,
             description: description,
-            url: `https://billet-congo.com/events/${event.id}`,
-            siteName: 'Billet-Congo',
+            url: `https://astropass.com/events/${event.id}`,
+            siteName: 'AstroPass',
             images: event.imageUrl ? [
                 {
                     url: event.imageUrl,

@@ -12,44 +12,44 @@ export default function OrganisateurNewEventPage() {
                 </Link>
             </div>
 
-            <h1 className="text-3xl font-bold mb-8 text-neutral-900">Créer un nouvel événement</h1>
+            <h1 className="text-3xl font-heading font-bold mb-8 text-white">Créer un nouvel événement</h1>
 
             <Card className="p-8 border-neutral-200 bg-white shadow-sm">
                 <form action={createOrUpdateEventAction} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="md:col-span-2">
                             <label className="block text-sm mb-2 text-neutral-600 uppercase tracking-widest text-[10px] font-bold">Titre de l&apos;événement</label>
-                            <input type="text" name="title" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:ring-2 focus:ring-primary-500 outline-none transition-all" placeholder="Ex: Festival des Arts de Brazzaville" />
+                            <input type="text" name="title" required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all shadow-sm transition-all" placeholder="Ex: Festival des Arts de Brazzaville" />
                         </div>
 
                         <div className="md:col-span-2">
                             <label className="block text-sm mb-2 text-neutral-600 uppercase tracking-widest text-[10px] font-bold">Description complète</label>
-                            <textarea name="description" required rows={4} className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:ring-2 focus:ring-primary-500 outline-none transition-all" placeholder="Décrivez votre événement en quelques lignes..."></textarea>
+                            <textarea name="description" required rows={4} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all shadow-sm transition-all" placeholder="Décrivez votre événement en quelques lignes..."></textarea>
                         </div>
 
                         <div>
                             <label className="block text-sm mb-2 text-neutral-600 uppercase tracking-widest text-[10px] font-bold">Lieu / Ville</label>
-                            <input type="text" name="location" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:ring-2 focus:ring-primary-500 outline-none transition-all" placeholder="Ex: Palais du Peuple" />
+                            <input type="text" name="location" required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all shadow-sm transition-all" placeholder="Ex: Palais du Peuple" />
                         </div>
 
                         <div>
                             <label className="block text-sm mb-2 text-neutral-600 uppercase tracking-widest text-[10px] font-bold">Date et Heure de Début</label>
-                            <input type="datetime-local" name="startDate" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:ring-2 focus:ring-primary-500 outline-none transition-all" />
+                            <input type="datetime-local" name="startDate" required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all shadow-sm transition-all" />
                         </div>
 
                         <div>
                             <label className="block text-sm mb-2 text-neutral-600 uppercase tracking-widest text-[10px] font-bold">Date et Heure de Fin (Optionnel)</label>
-                            <input type="datetime-local" name="endDate" className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:ring-2 focus:ring-primary-500 outline-none transition-all" />
+                            <input type="datetime-local" name="endDate" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all shadow-sm transition-all" />
                         </div>
 
                         <div>
                             <label className="block text-sm mb-2 text-neutral-600 uppercase tracking-widest text-[10px] font-bold">Prix Standard (XAF)</label>
-                            <input type="number" name="price" min="0" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:ring-2 focus:ring-primary-500 outline-none transition-all font-mono" placeholder="5000" />
+                            <input type="number" name="price" min="0" required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all shadow-sm transition-all font-mono" placeholder="5000" />
                         </div>
 
                         <div>
                             <label className="block text-sm mb-2 text-neutral-600 uppercase tracking-widest text-[10px] font-bold">Places Standard Total</label>
-                            <input type="number" name="capacity" min="1" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:ring-2 focus:ring-primary-500 outline-none transition-all font-mono" placeholder="500" />
+                            <input type="number" name="capacity" min="1" required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all shadow-sm transition-all font-mono" placeholder="500" />
                         </div>
 
                         <div>
@@ -64,7 +64,7 @@ export default function OrganisateurNewEventPage() {
 
                         <div className="md:col-span-2">
                             <label className="block text-sm mb-2 text-neutral-600 uppercase tracking-widest text-[10px] font-bold">Photo de l&apos;Affiche (Depuis l&apos;appareil)</label>
-                            <input type="file" name="imageFile" accept="image/*" className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:ring-2 focus:ring-primary-500 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 cursor-pointer" />
+                            <input type="file" name="imageFile" accept="image/*" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all shadow-sm transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent-500/10 file:text-accent-500 hover:file:bg-white/10 file:border file:border-accent-500/20 cursor-pointer" />
                             <p className="text-[10px] text-neutral-500 mt-2 italic px-1">L&apos;image sera compressée et stockée avec l&apos;événement.</p>
                         </div>
 
@@ -82,7 +82,7 @@ export default function OrganisateurNewEventPage() {
                         </div>
                     </div>
 
-                    <div className="pt-6 border-t border-neutral-200 flex justify-end gap-4">
+                    <div className="pt-6 border-t border-white/10 flex justify-end gap-4">
                         <Link href="/organisateur/events">
                             <Button type="button" variant="ghost">Annuler</Button>
                         </Link>

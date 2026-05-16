@@ -18,7 +18,7 @@ export default async function AdminEventsPage() {
         <div className="p-4 md:p-12">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold mb-2">Gestion des événements</h1>
+                    <h1 className="text-3xl font-heading font-bold mb-2 text-white">Gestion des événements</h1>
                     <p className="text-neutral-400 text-sm md:text-base">Gérez le catalogue des événements visibles par les clients.</p>
                 </div>
                 <div className="w-full md:w-auto">

@@ -58,7 +58,7 @@ export function DownloadTicketButton({ ticketId, role, downloadCount, targetElem
 
             // Ajouter l'image au PDF et sauvegarder
             pdf.addImage(dataUrl, 'PNG', x, y, imgWidth, imgHeight);
-            pdf.save(`billet-congo-${ticketId}.pdf`);
+            pdf.save(`astropass-${ticketId}.pdf`);
 
             // Incrémente le compteur en base de données de manière asynchrone
             await incrementDownloadCountAction(ticketId);

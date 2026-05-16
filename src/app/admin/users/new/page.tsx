@@ -15,13 +15,13 @@ export default async function AdminNewUserPage() {
     return (
         <div className="p-8 md:p-12 max-w-2xl mx-auto">
             <div className="mb-8">
-                <Link href="/admin/users" className="text-sm font-medium text-neutral-500 hover:text-neutral-900 transition-colors">
+                <Link href="/admin/users" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
                     ← Retour à la liste
                 </Link>
                 <h1 className="text-3xl font-bold mt-4 text-neutral-900">Créer un utilisateur</h1>
             </div>
 
-            <Card className="p-8 shadow-sm border border-neutral-200 bg-white">
+            <Card className="p-8 border-none relative overflow-hidden">
                 <form 
                     action={async (formData) => {
                         'use server';
@@ -34,7 +34,7 @@ export default async function AdminNewUserPage() {
                 >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-700">Nom complet</label>
+                            <label className="block text-sm font-medium mb-2 text-neutral-300">Nom complet</label>
                             <input
                                 type="text"
                                 name="fullName"
@@ -44,7 +44,7 @@ export default async function AdminNewUserPage() {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-700">Rôle</label>
+                            <label className="block text-sm font-medium mb-2 text-neutral-300">Rôle</label>
                             <select
                                 name="role"
                                 required
@@ -61,7 +61,7 @@ export default async function AdminNewUserPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-700">Email</label>
+                            <label className="block text-sm font-medium mb-2 text-neutral-300">Email</label>
                             <input
                                 type="email"
                                 name="email"
@@ -71,7 +71,7 @@ export default async function AdminNewUserPage() {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-neutral-700">Téléphone</label>
+                            <label className="block text-sm font-medium mb-2 text-neutral-300">Téléphone</label>
                             <input
                                 type="tel"
                                 name="phone"
@@ -83,7 +83,7 @@ export default async function AdminNewUserPage() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-2 text-neutral-700">Mot de passe</label>
+                        <label className="block text-sm font-medium mb-2 text-neutral-300">Mot de passe</label>
                         <input
                             type="password"
                             name="password"

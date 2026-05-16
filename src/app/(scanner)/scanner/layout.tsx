@@ -19,7 +19,7 @@ export default async function ScannerLayout({ children }: { children: React.Reac
             <header className="bg-white border-b border-neutral-200 p-4 shrink-0 flex justify-between items-center sticky top-0 z-10">
                 <div className="flex items-center gap-4">
                     <Link href="/" className="text-xl font-bold text-primary-600 hidden md:block">
-                        CongoTickets
+                        AstroPass
                     </Link>
                     <span className="px-3 py-1 bg-primary-50 text-primary-700 font-bold text-xs rounded-full uppercase tracking-widest border border-primary-200">
                         Mode Scan

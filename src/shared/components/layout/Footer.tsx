@@ -7,7 +7,7 @@ export const Footer = () => {
             <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                     <h3 className="text-xl font-heading font-bold text-accent-500 mb-4 tracking-tight">
-                        CongoTickets
+                        AstroPass
                     </h3>
                     <p className="text-sm text-neutral-400">
                         La première plateforme de billetterie fluide au Congo Brazzaville. Sécurisée, rapide, optimisée pour Mobile Money.
@@ -37,7 +37,7 @@ export const Footer = () => {
                 </div>
             </div>
             <div className="container mx-auto px-4 mt-12 pt-8 border-t border-white/10 text-center text-sm text-neutral-500">
-                &copy; {new Date().getFullYear()} CongoTickets. Tous droits réservés.
+                &copy; {new Date().getFullYear()} AstroPass. Tous droits réservés.
             </div>
         </footer>
     );

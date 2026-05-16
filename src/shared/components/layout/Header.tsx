@@ -12,7 +12,7 @@ export const Header = async () => {
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/" className="text-xl font-heading font-bold text-accent-500 tracking-tight">
-            CongoTickets
+            AstroPass
           </Link>
         </div>
 

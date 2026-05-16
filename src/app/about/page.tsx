@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'À propos | CongoTickets',
-  description: 'En savoir plus sur CongoTickets',
+  title: 'À propos | AstroPass',
+  description: 'En savoir plus sur AstroPass',
 };
 
 export default function AboutPage() {
