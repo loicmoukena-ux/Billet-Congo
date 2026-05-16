@@ -13,32 +13,54 @@ export default async function Home() {
 
   return (
     <div className="container mx-auto px-4">
-      {/* Hero Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden flex justify-center">
-        <div className="bg-white/30 backdrop-blur-2xl border border-white/30 rounded-[3rem] p-10 md:p-24 text-center max-w-5xl mx-auto relative overflow-hidden group shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]">
-          {/* Subtle inner glow */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-40 pointer-events-none" />
+      {/* Hero Section / Banner Slider */}
+      <section className="relative py-8 md:py-12 overflow-hidden">
+        <div className="relative w-full h-[60vh] min-h-[500px] rounded-[3rem] overflow-hidden group shadow-[0_0_50px_-12px_rgba(109,59,255,0.2)] border border-white/5">
+          {/* Temporary Placeholder Image for Slider */}
+          <div className="absolute inset-0 bg-neutral-900">
+            <img 
+              src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=3000&auto=format&fit=crop" 
+              alt="Concert" 
+              className="w-full h-full object-cover opacity-50 mix-blend-screen transition-transform duration-1000 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050811] via-[#050811]/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#050811]/80 to-transparent" />
+          </div>
 
-          <div className="relative z-10 space-y-8">
-            <h1 className="text-5xl md:text-8xl font-black tracking-tight text-neutral-900 animate-slide-up leading-tight">
-              Vivez <span className="text-gradient">l&apos;instant.</span>
-            </h1>
-            <p className="text-lg md:text-2xl text-neutral-600 max-w-2xl mx-auto leading-relaxed animate-slide-up [animation-delay:0.1s] text-balance">
-              La billetterie nouvelle génération pour le Congo. Découvrez, réservez et vibrez aux rythmes des meilleurs événements.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-4 animate-slide-up [animation-delay:0.2s]">
-              <Button asChild size="lg" className="min-w-[200px] h-14 rounded-2xl text-base font-semibold group flex items-center justify-center gap-2 px-0 shadow-xl shadow-primary-500/20 hover:shadow-primary-500/30 transition-all hover:-translate-y-0.5">
-                <Link href="/events" className="flex items-center justify-center w-full h-full px-10">
-                  <span className="w-5 h-5 invisible" aria-hidden="true" />
-                  <span className="flex-1 text-center">Découvrir</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
-                </Link>
-              </Button>
-              <Link href={organizeHref}>
-                <Button size="lg" variant="outline" className="min-w-[200px] h-14 rounded-2xl text-base font-semibold bg-white/60 backdrop-blur-md border-neutral-200 hover:bg-white hover:border-neutral-300 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5">
-                  Organiser un événement
+          <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16 z-10">
+            <div className="max-w-3xl space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-500/30 text-primary-100 text-xs font-bold uppercase tracking-wider mb-2 animate-fade-in">
+                <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse shadow-[0_0_10px_rgba(109,59,255,0.8)]" />
+                Événement à la une
+              </div>
+              <h1 className="text-5xl md:text-7xl font-heading font-bold tracking-tight text-white animate-slide-up leading-tight">
+                Vivez <span className="text-gradient">l&apos;instant.</span>
+              </h1>
+              <p className="text-lg md:text-xl text-neutral-300 max-w-2xl leading-relaxed animate-slide-up [animation-delay:0.1s] text-balance">
+                La billetterie nouvelle génération pour le Congo. Découvrez, réservez et vibrez aux rythmes des meilleurs événements.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center gap-4 pt-6 animate-slide-up [animation-delay:0.2s]">
+                <Button asChild size="lg" className="min-w-[200px] h-14 rounded-2xl text-base transition-all">
+                  <Link href="/events">
+                    Découvrir les événements
+                  </Link>
                 </Button>
-              </Link>
+                <Link href={organizeHref}>
+                  <Button size="lg" variant="outline" className="min-w-[200px] h-14 rounded-2xl text-base transition-all">
+                    Organiser un événement
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Slider Controls (Decorative for now) */}
+            <div className="absolute bottom-8 right-8 flex gap-3 hidden md:flex">
+              <button className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-all border border-white/10 text-white hover:scale-105 active:scale-95">
+                 ←
+              </button>
+              <button className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-all border border-white/10 text-white hover:scale-105 active:scale-95">
+                 →
+              </button>
             </div>
           </div>
         </div>
@@ -48,10 +70,10 @@ export default async function Home() {
       <section className="pb-32 animate-fade-in [animation-delay:0.4s]">
         <div className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-4">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight text-neutral-900">À l&apos;affiche</h2>
-            <p className="text-neutral-600">Les événements incontournables du moment</p>
+            <h2 className="text-3xl font-heading font-bold tracking-tight text-white">À l&apos;affiche</h2>
+            <p className="text-neutral-400">Les événements incontournables du moment</p>
           </div>
-          <Button asChild variant="ghost" className="text-primary-600">
+          <Button asChild variant="ghost" className="text-primary-400 hover:text-primary-300 hover:bg-white/5">
             <Link href="/events">Voir tout le calendrier</Link>
           </Button>
         </div>
@@ -65,12 +87,12 @@ export default async function Home() {
         </div>
 
         {events.length === 0 && (
-          <div className="text-center py-32 bg-neutral-50 border border-neutral-200 rounded-[2rem]">
-            <div className="w-16 h-16 bg-neutral-200 rounded-full flex items-center justify-center mx-auto mb-6 text-neutral-500">
+          <div className="text-center py-32 glass-card rounded-[2rem] flex flex-col items-center justify-center">
+            <div className="w-16 h-16 glass rounded-full flex items-center justify-center mb-6 text-primary-400 border border-primary-500/20 shadow-[0_0_15px_rgba(109,59,255,0.2)]">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" /></svg>
             </div>
-            <h3 className="text-xl font-bold mb-2 text-neutral-900">Aucun événement</h3>
-            <p className="text-neutral-600">Revenez plus tard pour découvrir de nouvelles pépites.</p>
+            <h3 className="text-xl font-heading font-bold mb-2 text-white">Aucun événement</h3>
+            <p className="text-neutral-400">Revenez plus tard pour découvrir de nouvelles pépites.</p>
           </div>
         )}
       </section>
