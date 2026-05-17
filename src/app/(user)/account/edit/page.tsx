@@ -19,10 +19,10 @@ export default async function EditAccountPage() {
                 <Link href="/account" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
                     ← Retour à mon espace
                 </Link>
-                <h1 className="text-3xl font-bold mt-4">Modifier mon profil</h1>
+                <h1 className="text-3xl font-heading font-bold mt-4 text-white">Modifier mon profil</h1>
             </div>
 
-            <Card className="p-8 shadow-2xl">
+            <Card className="p-8 border-none relative overflow-hidden">
                 <form 
                     action={async (formData) => {
                         'use server';
@@ -41,7 +41,7 @@ export default async function EditAccountPage() {
                                 name="fullName"
                                 required
                                 defaultValue={user.fullName}
-                                className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 transition-all shadow-sm"
                             />
                         </div>
                         <div>
@@ -51,7 +51,7 @@ export default async function EditAccountPage() {
                                 name="email"
                                 required
                                 defaultValue={user.email}
-                                className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 transition-all shadow-sm"
                             />
                         </div>
                     </div>
@@ -63,17 +63,17 @@ export default async function EditAccountPage() {
                             name="phone"
                             required
                             defaultValue={user.phoneNumber}
-                            className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 transition-all shadow-sm"
                         />
                     </div>
 
-                    <div className="pt-4 border-t border-white/5">
+                    <div className="pt-4 border-t border-white/10">
                         <label className="block text-sm font-medium mb-2 text-neutral-300">Nouveau mot de passe (laisser vide pour ne pas changer)</label>
                         <input
                             type="password"
                             name="password"
                             placeholder="••••••••"
-                            className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 transition-all shadow-sm"
                         />
                     </div>
 

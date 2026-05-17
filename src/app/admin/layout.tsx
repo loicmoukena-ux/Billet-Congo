@@ -17,12 +17,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     }
 
     return (
-        <div className="min-h-screen bg-neutral-950 flex flex-col md:flex-row pb-16 md:pb-0">
+        <div className="min-h-screen bg-[#050811] flex flex-col md:flex-row pb-16 md:pb-0">
             {/* Sidebar Admin Commune (Desktop) */}
-            <aside className="w-64 bg-neutral-900 border-r border-white/10 hidden md:flex flex-col h-screen sticky top-0 z-10">
+            <aside className="w-64 bg-[#0B1020] border-r border-white/10 hidden md:flex flex-col h-screen sticky top-0 z-10 shadow-[4px_0_24px_rgba(0,0,0,0.5)]">
                 <div className="p-6 border-b border-white/10">
-                    <Link href="/" className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                        Billet Congo
+                    <Link href="/" className="text-xl font-heading font-bold text-accent-500 tracking-tight">
+                        AstroPass
                     </Link>
                 </div>
 
@@ -31,29 +31,29 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                     <p className="text-sm font-semibold text-white truncate">{user.fullName}</p>
                     <span className={`inline-block mt-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                         user.role === 'ADMIN'
-                            ? 'bg-red-500/20 text-red-400'
-                            : 'bg-indigo-500/20 text-indigo-400'
+                            ? 'bg-red-500/10 text-red-500 border border-red-500/20'
+                            : 'bg-accent-500/10 text-accent-500 border border-accent-500/20'
                     }`}>
                         {user.role === 'ADMIN' ? 'Administrateur' : 'Organisateur'}
                     </span>
                 </div>
 
                 <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-                    <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
+                    <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-accent-500 hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
                         📊 Vue Générale
                     </Link>
-                    <Link href="/admin/events" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
+                    <Link href="/admin/events" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-accent-500 hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
                         🎟️ Événements
                     </Link>
                     {user.role === 'ADMIN' && (
-                        <Link href="/admin/users" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
+                        <Link href="/admin/users" className="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:text-accent-500 hover:bg-white/5 rounded-xl text-sm font-medium transition-colors">
                             👥 Utilisateurs
                         </Link>
                     )}
                 </nav>
                 <div className="p-4 border-t border-white/10">
                     <form action={logoutAction}>
-                        <Button variant="ghost" fullWidth type="submit" className="justify-start gap-3">
+                        <Button variant="outline" fullWidth type="submit" className="justify-start gap-3 border-white/10 text-neutral-400 hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/20">
                             🚪 Déconnexion
                         </Button>
                     </form>
@@ -61,23 +61,23 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             </aside>
 
             {/* Mobile Bottom Navigation */}
-            <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-neutral-900 border-t border-white/10 flex justify-around items-center p-2 z-50 h-16">
-                <Link href="/admin/dashboard" className="flex flex-col items-center gap-1 p-2 text-neutral-400 hover:text-white transition-colors">
+            <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#0B1020] border-t border-white/10 flex justify-around items-center p-2 z-50 h-16 shadow-[0_-4px_24px_rgba(0,0,0,0.5)]">
+                <Link href="/admin/dashboard" className="flex flex-col items-center gap-1 p-2 text-neutral-400 hover:text-accent-500 transition-colors">
                     <span className="text-lg">📊</span>
                     <span className="text-[10px] font-medium">Dashboard</span>
                 </Link>
-                <Link href="/admin/events" className="flex flex-col items-center gap-1 p-2 text-neutral-400 hover:text-white transition-colors">
+                <Link href="/admin/events" className="flex flex-col items-center gap-1 p-2 text-neutral-400 hover:text-accent-500 transition-colors">
                     <span className="text-lg">🎟️</span>
                     <span className="text-[10px] font-medium">Événements</span>
                 </Link>
                 {user.role === 'ADMIN' && (
-                    <Link href="/admin/users" className="flex flex-col items-center gap-1 p-2 text-neutral-400 hover:text-white transition-colors">
+                    <Link href="/admin/users" className="flex flex-col items-center gap-1 p-2 text-neutral-400 hover:text-accent-500 transition-colors">
                         <span className="text-lg">👥</span>
                         <span className="text-[10px] font-medium">Utilisateurs</span>
                     </Link>
                 )}
                 <form action={logoutAction} className="flex flex-col items-center">
-                    <button type="submit" className="flex flex-col items-center gap-1 p-2 text-neutral-400 hover:text-red-400 transition-colors">
+                    <button type="submit" className="flex flex-col items-center gap-1 p-2 text-neutral-400 hover:text-red-500 transition-colors">
                         <span className="text-lg">🚪</span>
                         <span className="text-[10px] font-medium">Sortir</span>
                     </button>

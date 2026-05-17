@@ -20,7 +20,7 @@ export const MobileMenu = ({ user }: MobileMenuProps) => {
     <div className="md:hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 text-neutral-300 hover:text-white transition-colors"
+        className="p-2 text-white hover:text-accent-500 transition-colors"
         aria-label="Menu"
       >
         {isOpen ? (
@@ -31,20 +31,20 @@ export const MobileMenu = ({ user }: MobileMenuProps) => {
       </button>
 
       {isOpen && (
-        <div className="absolute top-16 left-0 w-full bg-neutral-950/95 backdrop-blur-3xl animate-fade-in border-b border-white/10 z-50 shadow-2xl">
+        <div className="absolute top-16 left-0 w-full bg-[#0B1020]/95 backdrop-blur-3xl animate-fade-in border-b border-white/10 z-50 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
           <nav className="flex flex-col p-6 gap-6">
             <div className="flex flex-col gap-4 border-b border-white/10 pb-6">
               <Link 
                 href="/events" 
                 onClick={() => setIsOpen(false)}
-                className="text-lg font-medium text-neutral-200 hover:text-white transition-colors"
+                className="text-lg font-medium text-neutral-300 hover:text-accent-500 transition-colors"
               >
                 Événements
               </Link>
               <Link 
                 href="/about" 
                 onClick={() => setIsOpen(false)}
-                className="text-lg font-medium text-neutral-200 hover:text-white transition-colors"
+                className="text-lg font-medium text-neutral-300 hover:text-accent-500 transition-colors"
               >
                 À propos
               </Link>
@@ -64,9 +64,9 @@ export const MobileMenu = ({ user }: MobileMenuProps) => {
                             : "/account"
                     }
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10"
+                    className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10 hover:bg-white/10 transition-colors"
                   >
-                    <span className="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center text-sm font-bold text-white">
+                    <span className="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center text-sm font-bold text-white shadow-[0_0_10px_rgba(109,59,255,0.4)]">
                       {user.fullName?.charAt(0) || 'U'}
                     </span>
                     <span className="text-white font-medium">
@@ -78,7 +78,7 @@ export const MobileMenu = ({ user }: MobileMenuProps) => {
                   
                   <button
                     onClick={handleLogout}
-                    className="flex items-center justify-center gap-2 text-red-400 bg-red-400/5 border border-red-400/10 py-3 rounded-xl hover:bg-red-400/10 transition-colors font-medium"
+                    className="flex items-center justify-center gap-2 text-red-500 bg-red-500/10 border border-red-500/20 py-3 rounded-xl hover:bg-red-500/20 transition-colors font-medium"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                     Déconnexion
@@ -96,7 +96,7 @@ export const MobileMenu = ({ user }: MobileMenuProps) => {
                   <Link 
                     href="/auth/register" 
                     onClick={() => setIsOpen(false)}
-                    className="text-center text-base font-medium bg-white text-black py-3 rounded-xl hover:bg-neutral-200 transition-colors"
+                    className="text-center text-base font-medium bg-accent-500 text-neutral-950 py-3 rounded-xl hover:bg-accent-400 transition-colors shadow-[0_0_15px_rgba(203,163,92,0.4)]"
                   >
                     S&apos;inscrire
                   </Link>

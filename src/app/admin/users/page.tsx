@@ -21,7 +21,7 @@ export default async function AdminUsersPage() {
         <div className="p-4 md:p-12">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold mb-2">Utilisateurs</h1>
+                    <h1 className="text-3xl font-heading font-bold mb-2 text-white">Utilisateurs</h1>
                     <p className="text-neutral-400 text-sm md:text-base">Gérez les comptes ADMIN, PROMOTER et SCANNER.</p>
                 </div>
                 <div className="w-full md:w-auto">
@@ -33,10 +33,10 @@ export default async function AdminUsersPage() {
 
             <Card className="overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
+                    <table className="w-full text-left border-collapse bg-transparent">
                         <thead>
-                            <tr className="bg-neutral-900 border-b border-white/10 text-sm text-neutral-400">
-                                <th className="p-4 font-semibold text-indigo-400">Rôle</th>
+                            <tr className="bg-white/5 border-b border-white/10 text-sm text-neutral-400">
+                                <th className="p-4 font-semibold text-accent-500">Rôle</th>
                                 <th className="p-4 font-semibold whitespace-nowrap">Nom complet</th>
                                 <th className="p-4 font-semibold whitespace-nowrap">Email / Téléphone</th>
                                 <th className="p-4 font-semibold whitespace-nowrap">Date d&apos;inscription</th>
@@ -52,13 +52,13 @@ export default async function AdminUsersPage() {
                                 </tr>
                             ) : (
                                 users.map((u) => (
-                                    <tr key={u.id} className="hover:bg-white/[0.02] transition-colors group">
+                                    <tr key={u.id} className="hover:bg-white/5 transition-colors group">
                                         <td className="p-4">
                                             <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider whitespace-nowrap ${
-                                                u.role === 'ADMIN' ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
-                                                u.role === 'PROMOTER' ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' :
-                                                u.role === 'SCANNER' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
-                                                'bg-neutral-500/20 text-neutral-400 border border-white/10'
+                                                u.role === 'ADMIN' ? 'bg-red-500/10 text-red-500 border border-red-500/20' :
+                                                u.role === 'PROMOTER' ? 'bg-accent-500/10 text-accent-500 border border-accent-500/20' :
+                                                u.role === 'SCANNER' ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' :
+                                                'bg-white/10 text-neutral-300 border border-white/20'
                                             }`}>
                                                 {u.role === 'PROMOTER' ? 'Organisateur' : u.role}
                                             </span>
@@ -74,7 +74,7 @@ export default async function AdminUsersPage() {
                                         <td className="p-4 text-right">
                                             <div className="flex items-center justify-end gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                                                 <Link href={`/admin/users/${u.id}/edit`}>
-                                                    <Button variant="ghost" size="sm" className="text-indigo-400 hover:bg-indigo-500/10" title="Modifier">
+                                                    <Button variant="ghost" size="sm" className="text-accent-500 hover:bg-white/5" title="Modifier">
                                                         ✏️
                                                     </Button>
                                                 </Link>

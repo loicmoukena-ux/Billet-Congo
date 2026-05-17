@@ -15,20 +15,20 @@ export default async function ScannerLayout({ children }: { children: React.Reac
     }
 
     return (
-        <div className="min-h-screen bg-neutral-950 flex flex-col">
-            <header className="bg-neutral-900 border-b border-white/10 p-4 shrink-0 flex justify-between items-center sticky top-0 z-10">
+        <div className="min-h-screen bg-neutral-50 flex flex-col">
+            <header className="bg-white border-b border-neutral-200 p-4 shrink-0 flex justify-between items-center sticky top-0 z-10">
                 <div className="flex items-center gap-4">
-                    <Link href="/" className="text-xl font-bold text-white hidden md:block">
-                        CongoTickets
+                    <Link href="/" className="text-xl font-bold text-primary-600 hidden md:block">
+                        AstroPass
                     </Link>
-                    <span className="px-3 py-1 bg-purple-500/20 text-purple-400 font-bold text-xs rounded-full uppercase tracking-widest">
+                    <span className="px-3 py-1 bg-primary-50 text-primary-700 font-bold text-xs rounded-full uppercase tracking-widest border border-primary-200">
                         Mode Scan
                     </span>
                 </div>
                 <div className="flex items-center gap-4">
-                    <span className="text-sm font-medium text-neutral-400 hidden sm:inline-block">Agent: {user.fullName}</span>
+                    <span className="text-sm font-medium text-neutral-600 hidden sm:inline-block">Agent: {user.fullName}</span>
                     <form action={logoutAction}>
-                        <Button variant="ghost" size="sm" type="submit">Déconnexion</Button>
+                        <Button variant="outline" size="sm" type="submit" className="border-neutral-200 text-neutral-700 hover:bg-neutral-50">Déconnexion</Button>
                     </form>
                 </div>
             </header>

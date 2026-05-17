@@ -57,15 +57,16 @@ function LoginForm() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center -mt-16 px-4">
-            <Card className="w-full max-w-md p-8 shadow-2xl">
-                <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold mb-2">Bon retour</h1>
+        <div className="flex items-center justify-center min-h-[80vh] py-12 px-4 relative z-10">
+            <Card className="w-full max-w-md p-8 border-none relative overflow-hidden">
+                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500"></div>
+                <div className="text-center mb-8 pt-4">
+                    <h1 className="text-3xl font-heading font-bold mb-2 text-white tracking-tight">Bon retour</h1>
                     <p className="text-neutral-400">Connectez-vous pour accéder à vos billets</p>
                 </div>
 
                 {error && (
-                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl mb-6 text-sm">
+                    <div className="bg-red-500/10 border border-red-500/20 text-red-500 p-4 rounded-xl mb-6 text-sm">
                         {error}
                     </div>
                 )}
@@ -84,7 +85,7 @@ function LoginForm() {
                             name="phone"
                             required
                             placeholder="Ex: 06 123 45 67"
-                            className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all shadow-sm"
                         />
                     </div>
 
@@ -95,7 +96,7 @@ function LoginForm() {
                             name="password"
                             required
                             placeholder="••••••••"
-                            className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all shadow-sm"
                         />
                     </div>
 
@@ -105,7 +106,7 @@ function LoginForm() {
 
                     <p className="text-center text-sm text-neutral-400 pt-4">
                         Pas encore de compte ?{' '}
-                        <Link href="/auth/register" className="text-indigo-400 hover:text-indigo-300 font-medium">
+                        <Link href="/auth/register" className="text-accent-500 hover:text-accent-400 font-medium">
                             S&apos;inscrire
                         </Link>
                     </p>
@@ -115,7 +116,7 @@ function LoginForm() {
                             <span className="w-full border-t border-white/10" />
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-neutral-950 px-2 text-neutral-500">Ou</span>
+                            <span className="bg-[#111626] px-2 text-neutral-500 rounded-full">Ou</span>
                         </div>
                     </div>
 
@@ -124,7 +125,7 @@ function LoginForm() {
                         formAction={redirectToFirstEventCheckout}
                         variant="outline" 
                         fullWidth 
-                        className="border-neutral-700 text-neutral-300 hover:bg-neutral-800"
+                        className="border-white/20 text-neutral-300 hover:bg-white/5 hover:border-white/30"
                     >
                         Continuer sans compte
                     </Button>
@@ -137,8 +138,8 @@ function LoginForm() {
 export default function LoginPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen flex items-center justify-center -mt-16 px-4">
-                <Card className="w-full max-w-md p-8 shadow-2xl text-center">
+            <div className="flex items-center justify-center min-h-[80vh] py-12 px-4 relative z-10">
+                <Card className="w-full max-w-md p-8 border-none text-center">
                     <p className="text-neutral-400 animate-pulse">Chargement...</p>
                 </Card>
             </div>

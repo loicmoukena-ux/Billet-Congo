@@ -43,34 +43,34 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
 
     return (
         <div className="container mx-auto px-4 py-16 max-w-5xl">
-            <h1 className="text-3xl font-bold mb-8">Finaliser la réservation</h1>
+            <h1 className="text-3xl font-bold mb-8 text-neutral-900">Finaliser la réservation</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
                 {/* Colonne gauche : Résumé */}
-                <div className="md:col-span-1 border-b md:border-b-0 border-white/10 pb-8 md:pb-0 md:border-r border-white/5 pr-0 md:pr-8 mb-8 md:mb-0">
-                    <h2 className="text-xl font-bold mb-6">Résumé de la commande</h2>
+                <div className="md:col-span-1 border-b md:border-b-0 border-neutral-200 pb-8 md:pb-0 md:border-r pr-0 md:pr-8 mb-8 md:mb-0">
+                    <h2 className="text-xl font-bold mb-6 text-neutral-900">Résumé de la commande</h2>
 
                     <div className="mb-6">
-                        <h3 className="font-semibold text-lg">{event.title}</h3>
-                        <p className="text-sm text-neutral-400 capitalize">
+                        <h3 className="font-semibold text-lg text-neutral-900">{event.title}</h3>
+                        <p className="text-sm text-neutral-600 capitalize">
                             {new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).format(new Date(event.startDate))}
                         </p>
-                        <p className="text-sm text-neutral-400">{event.location}</p>
+                        <p className="text-sm text-neutral-600">{event.location}</p>
                     </div>
 
-                    <div className="space-y-3 pt-6 border-t border-white/10">
+                    <div className="space-y-3 pt-6 border-t border-neutral-200">
                         <div className="flex justify-between text-sm">
-                            <span className={`${isVip ? 'text-amber-400 font-bold' : 'text-neutral-400'}`}>
+                            <span className={`${isVip ? 'text-amber-600 font-bold' : 'text-neutral-600'}`}>
                                 Billet {isVip ? 'VIP' : 'Standard'} x {safeQuantity}
                             </span>
-                            <span>{new Intl.NumberFormat('fr-FR').format(pricePerUnit * safeQuantity)} {event.currency}</span>
+                            <span className="text-neutral-900">{new Intl.NumberFormat('fr-FR').format(pricePerUnit * safeQuantity)} {event.currency}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                            <span className="text-neutral-400">Frais de service (0%)</span>
-                            <span>0 {event.currency}</span>
+                            <span className="text-neutral-600">Frais de service (0%)</span>
+                            <span className="text-neutral-900">0 {event.currency}</span>
                         </div>
-                        <div className="flex justify-between font-bold text-lg pt-4 border-t border-white/10 mt-4 text-indigo-400">
+                        <div className="flex justify-between font-bold text-lg pt-4 border-t border-neutral-200 mt-4 text-primary-600">
                             <span>Total à payer</span>
                             <span>{new Intl.NumberFormat('fr-FR').format(totalPrice)} {event.currency}</span>
                         </div>
@@ -79,9 +79,12 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
 
                 {/* Colonne droite : Paiement */}
                 <div className="md:col-span-2">
-                    <Card className="p-8 shadow-2xl">
-                        <h2 className="text-xl font-bold mb-6">Paiement Mobile Money</h2>
-                        <p className="text-sm text-neutral-400 mb-8">
+                    <Card className="p-8 shadow-sm border border-neutral-200 bg-white">
+                        <h2 className="text-xl font-bold mb-6 text-neutral-900 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-600"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            Paiement Mobile Money
+                        </h2>
+                        <p className="text-sm text-neutral-600 mb-8">
                             Sélectionnez votre opérateur et entrez votre numéro. Vous recevrez un prompt USSD sur votre téléphone pour valider l&apos;achat.
                         </p>
 
@@ -98,47 +101,47 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
 
                             {!user && (
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-medium text-neutral-300 border-b border-white/10 pb-2">Vos informations</h3>
+                                    <h3 className="text-sm font-medium text-neutral-900 border-b border-neutral-200 pb-2">Vos informations</h3>
                                     <div>
-                                        <label className="block text-xs font-medium mb-1 text-neutral-400">Nom et Prénom</label>
+                                        <label className="block text-xs font-medium mb-1 text-neutral-700">Nom et Prénom</label>
                                         <input
                                             type="text"
                                             name="fullName"
                                             required
                                             placeholder="Ex: John Doe"
-                                            className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                            className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 shadow-sm transition-all"
                                         />
                                     </div>
                                 </div>
                             )}
 
                             <div className="space-y-4">
-                                <h3 className="text-sm font-medium text-neutral-300 border-b border-white/10 pb-2">Opérateur de Mobile Money</h3>
+                                <h3 className="text-sm font-medium text-neutral-900 border-b border-neutral-200 pb-2">Opérateur de Mobile Money</h3>
                                 <div className="grid grid-cols-2 gap-4">
                                     <label className="cursor-pointer relative">
                                         <input type="radio" name="provider" value="MTN" className="peer sr-only" defaultChecked />
-                                        <div className="bg-neutral-900 border border-white/10 rounded-xl p-4 text-center peer-checked:border-yellow-400 peer-checked:bg-yellow-400/10 transition-colors">
-                                            <span className="font-bold text-yellow-400">MTN Mobile Money</span>
+                                        <div className="bg-white border border-neutral-200 rounded-xl p-4 text-center peer-checked:border-yellow-500 peer-checked:bg-yellow-50 shadow-sm transition-colors">
+                                            <span className="font-bold text-yellow-500">MTN Mobile Money</span>
                                         </div>
                                     </label>
                                     <label className="cursor-pointer relative">
                                         <input type="radio" name="provider" value="AIRTEL" className="peer sr-only" />
-                                        <div className="bg-neutral-900 border border-white/10 rounded-xl p-4 text-center peer-checked:border-red-500 peer-checked:bg-red-500/10 transition-colors">
-                                            <span className="font-bold text-red-500">Airtel Money</span>
+                                        <div className="bg-white border border-neutral-200 rounded-xl p-4 text-center peer-checked:border-red-600 peer-checked:bg-red-50 shadow-sm transition-colors">
+                                            <span className="font-bold text-red-600">Airtel Money</span>
                                         </div>
                                     </label>
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium mb-2 text-neutral-300">Numéro de Mobile Money</label>
+                                <label className="block text-sm font-medium mb-2 text-neutral-700">Numéro de Mobile Money</label>
                                 <input
                                     type="tel"
                                     name="phone"
                                     defaultValue={user?.phoneNumber || ''}
                                     required
                                     placeholder="Ex: 06 123 45 67"
-                                    className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm transition-all"
                                 />
                             </div>
 
